@@ -25,12 +25,10 @@
       "description": "Para gerar <em>resultados incríveis</em> é preciso amar o que se faz!"
     }
   ],
-
   "about": {
     "title": "Boas ideias vêm do encontro de vários conhecimentos",
     "description": "Eu estudo Design, Desenvolvimento, Marketing, Estratégia, Música <em>— e faço um miojo incrível!</em>"
   },
-
   "projects": [
     {
       "link": "/one",
@@ -81,7 +79,6 @@
       "title": "A experiência de explorar"
     }
   ],
-
   "labels": [
     "Parceiro",
     "Local",
@@ -93,7 +90,6 @@
     "Anterior",
     "Próximo"
   ],
-
   "one": {
     "hero": {
       "illustration": "globe",
@@ -101,14 +97,17 @@
       "title": "One",
       "description": "Uma interface para todos"
     },
-
     "items": [
       "ClearSale",
       "São Paulo",
       "2024",
-      ["Design", "Pesquisa", "Estratégia", "Liderança"]
+      [
+        "Design",
+        "Pesquisa",
+        "Estratégia",
+        "Liderança"
+      ]
     ],
-
     "stages": [
       {
         "title": "Design global e escalável",
@@ -123,10 +122,8 @@
         "paragraph": "Ao final do seu primeiro ano, o One substituiu os portais brasileiro e internacional, consolidando-se como o principal produto da ClearSale. Desde então, evoluiu para integrar todos os produtos da empresa, unificando tecnologia, interface e, acima de tudo, a experiência do usuário."
       }
     ],
-
     "highlight": "\"Global ao atender usuários em todos os países, mas também ao suprir as necessidades internas da empresa\""
   },
-
   "soul": {
     "hero": {
       "illustration": "mind",
@@ -134,14 +131,16 @@
       "title": "Soul",
       "description": "Interfaces inconscientes"
     },
-
     "items": [
       "Puc-Rio",
       "Rio de Janeiro",
       "2014",
-      ["Desenvolvimento", "Eletrônica", "Design"]
+      [
+        "Desenvolvimento",
+        "Eletrônica",
+        "Design"
+      ]
     ],
-
     "stages": [
       {
         "title": "Conectando humanos e computadores",
@@ -156,10 +155,8 @@
         "paragraph": "Para provar esse conceito, desenvolvi um aplicativo que controla uma lâmpada cuja cor e intensidade se ajustam automaticamente às necessidades inconscientes do usuário, auxiliando em tarefas como concentração, relaxamento ou sono. O sistema processa os dados em tempo real e adapta a iluminação até atingir o objetivo desejado, sem necessidade de intervenção do usuário."
       }
     ],
-
     "highlight": "\"Se eu tivesse que resumir o seu projeto em uma palavra, escolheria resiliência\""
   },
-
   "sesc": {
     "hero": {
       "illustration": "link",
@@ -167,14 +164,17 @@
       "title": "Sesc",
       "description": "Conectando culturas"
     },
-
     "items": [
       "Sesc",
       "Rio de Janeiro",
       "2021",
-      ["Liderança", "Pesquisa", "Tecnologia", "Design"]
+      [
+        "Liderança",
+        "Pesquisa",
+        "Tecnologia",
+        "Design"
+      ]
     ],
-
     "stages": [
       {
         "title": "Conectando pessoas, serviços e cultura",
@@ -189,10 +189,8 @@
         "paragraph": "O novo site do Sesc foi lançado em 2021, aniversário de 75 anos da empresa, e rapidamente se consolidou como um dos principais canais de divulgação dos serviços do Sesc em todo o Brasil. Com uma interface acessível e conteúdo organizado, o portal passou a conectar milhões de brasileiros às ações da instituição, fortalecendo sua missão social por meio de uma presença digital moderna, inclusiva e estratégica."
       }
     ],
-
     "highlight": "\"O Sesc.com.br agora reflete a diversidade e o alcance nacional da instituição\""
   },
-
   "gamechanger": {
     "hero": {
       "illustration": "block",
@@ -200,14 +198,16 @@
       "title": "Game Changer",
       "description": "O jogo da inovação"
     },
-
     "items": [
       "Uerj",
       "Rio de Janeiro",
       "2024",
-      ["Game Design", "Tecnologia", "Inovação"]
+      [
+        "Game Design",
+        "Tecnologia",
+        "Inovação"
+      ]
     ],
-
     "stages": [
       {
         "title": "Unindo criatividade e viabilidade",
@@ -222,10 +222,8 @@
         "paragraph": "Como jogo, Game Changer oferece uma experiência estratégica e profundamente original. Mas o projeto vai além: é também uma pesquisa prática sobre o que se pode criar com paixão, organização e tecnologia. Ao disponibilizar um framework completo de viabilidades — técnica, econômica, artística, etc. —, ele também se consolida como uma referência para outros desenvolvedores independentes."
       }
     ],
-
     "highlight": "\"Posicionar, empurrar e prever. A vitória é menos sobre atacar e mais sobre dominar o espaço\""
   },
-
   "ericemanuel": {
     "hero": {
       "illustration": "ee",
@@ -233,14 +231,16 @@
       "title": "Eric Emanuel",
       "description": "Minha própria identidade"
     },
-
     "items": [
       "Eu, myself y yo",
       "Meu escritório",
       "2025",
-      ["Design", "Desenvolvimento", "Tecnologia"]
+      [
+        "Design",
+        "Desenvolvimento",
+        "Tecnologia"
+      ]
     ],
-
     "stages": [
       {
         "title": "Uma linguagem que me representa",
@@ -255,10 +255,8 @@
         "paragraph": "Este projeto reflete minha capacidade de unir sensibilidade artística e domínio técnico em um processo completo — da concepção estética ao design system, da prototipação à implementação. Dominar as tecnologias envolvidas me permite propor soluções viáveis e impactantes. É uma expressão autoral que entrega valor ao transformar intenção em experiência."
       }
     ],
-
     "highlight": "\"Este projeto sou eu: em pixels, código e propósito\""
   },
-
   "sescgo": {
     "hero": {
       "illustration": "map",
@@ -266,14 +264,16 @@
       "title": "Sesc Go",
       "description": "A experiência de explorar"
     },
-
     "items": [
       "Sesc",
       "Rio de Janeiro",
       "2019",
-      ["Tecnologia", "Design", "Inovação"]
+      [
+        "Tecnologia",
+        "Design",
+        "Inovação"
+      ]
     ],
-
     "stages": [
       {
         "title": "Centralizando experiências, conectando pessoas",
@@ -288,7 +288,50 @@
         "paragraph": "O conceito do Sesc+ e a abragência do design system facilitou ainda mais a aproximação do Sesc com seu público. Ao unir visão panorâmica e atenção aos detalhes, o projeto se consolidou como referência em experiência do usuário e inovação dentro da empresa e no setor público-privado."
       }
     ],
-
     "highlight": "\"Uma jornada de empatia e redescoberta de como o Sesc se comunica com as pessoas\""
+  },
+  "privacy": {
+    "stages": [
+      {
+        "label": "Política de Privacidade",
+        "title": "O que você precisa saber sobre o Danei",
+        "paragraph": "Esta Política de Privacidade explica como o Danei lida com informações quando você usa o app. O Danei é um app de finanças pessoais criado para ajudar usuários a organizarem sua vida financeira de forma simples e visual. Última atualização: maio de 2026."
+      },
+      {
+        "label": "Dados financeiros",
+        "title": "Suas informações financeiras ficam no seu dispositivo",
+        "paragraph": "As informações financeiras inseridas pelo usuário são armazenadas localmente no dispositivo do próprio usuário. Nesta versão do app, o Danei não envia títulos de transações, notas, valores, informações de salário, informações de dívidas ou registros financeiros pessoais para nossos servidores."
+      },
+      {
+        "label": "Analytics",
+        "title": "Usamos analytics básico para melhorar o app",
+        "paragraph": "O Danei pode coletar dados básicos de analytics para entender como o app é usado e melhorar a experiência. Isso pode incluir eventos como abertura de telas, criação, edição ou exclusão de transações, uso de filtros, versão do app, informações do dispositivo e comportamento geral de uso."
+      },
+      {
+        "label": "Compartilhamento de dados",
+        "title": "Nós não vendemos dados de usuários",
+        "paragraph": "O Danei não vende dados de usuários. O app pode usar serviços de terceiros, como provedores de analytics, para processar dados básicos de uso necessários para entender o desempenho do app e melhorar o produto. Esses serviços processam dados de acordo com suas próprias práticas de privacidade e segurança."
+      },
+      {
+        "label": "Armazenamento e exclusão",
+        "title": "Você controla seus dados locais",
+        "paragraph": "Os dados financeiros inseridos no Danei são armazenados localmente no dispositivo do usuário. Os usuários podem excluir os dados locais do app limpando os dados do aplicativo nas configurações do dispositivo ou desinstalando o app."
+      },
+      {
+        "label": "Atualizações futuras",
+        "title": "Esta política pode mudar conforme o Danei evolui",
+        "paragraph": "Se versões futuras do Danei introduzirem contas, sincronização em nuvem, backups ou planos pagos, esta Política de Privacidade poderá ser atualizada para explicar como esses recursos lidam com dados. Quando houver mudanças, a versão atualizada será publicada nesta página com uma nova data de atualização."
+      },
+      {
+        "label": "Privacidade infantil",
+        "title": "O Danei não é direcionado a crianças",
+        "paragraph": "O Danei não foi criado nem destinado ao uso por crianças. Nós não solicitamos, coletamos, armazenamos ou processamos intencionalmente informações pessoais de crianças por meio do app."
+      },
+      {
+        "label": "Fale comigo",
+        "title": "Dúvidas, solicitações e suporte de privacidade",
+        "paragraph": "Se você tiver dúvidas, preocupações ou solicitações relacionadas a esta Política de Privacidade ou à forma como o Danei lida com informações, pode entrar em contato comigo pelo e-mail: ericemanuel@gmail.com"
+      }
+    ]
   }
 }

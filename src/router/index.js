@@ -37,6 +37,11 @@ const routes = [
     name: 'sescgo',
     component: () => import('../views/sescgo.vue'),
   },
+  {
+    path: '/danei/privacy',
+    name: 'danei-privacy',
+    component: () => import('../views/danei/privacy.vue'),
+  },
 ];
 
 const router = createRouter({
