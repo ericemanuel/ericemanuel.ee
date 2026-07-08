@@ -1,0 +1,3356 @@
+
+
+// ============================================================
+// File: src\App.vue
+// ============================================================
+
+<template>
+  <top />
+  <router-view />
+  <logo />
+</template>
+
+<script>
+import top from '@/components/top.vue';
+import logo from '@/components/logo.vue';
+
+export default {
+  name: 'App',
+  components: { top, logo },
+};
+</script>
+
+<style lang="scss">
+@import '@/styles/resets.scss';
+@import '@/styles/swiper.scss';
+
+html {
+  background-color: $navy;
+  background-image: url(@/assets/vectors/illustrations/rapport.svg);
+  background-size: 240px;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  gap: 144px;
+  padding: 16px 0;
+  overflow: hidden;
+}
+
+.container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 328px;
+  margin: 0 auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  text-wrap: balance;
+}
+
+hr {
+  width: 40px;
+  box-sizing: border-box;
+  border-top: 2px solid $azure;
+}
+
+img {
+  min-width: 0;
+}
+
+video {
+  width: 100%;
+}
+
+@media only screen and (min-width: 900px) {
+  html {
+    background-size: 360px;
+  }
+
+  #app {
+    gap: 240px;
+    padding: 24px 0;
+  }
+
+  .container {
+    max-width: 900px;
+  }
+
+  hr {
+    width: 64px;
+  }
+}
+</style>
+
+
+
+// ============================================================
+// File: src\components\animation.vue
+// ============================================================
+
+<template>
+  <div class="animation">
+    <video autoplay loop muted playsinline poster="@/assets/videos/green.png">
+      <source src="@/assets/videos/green.mp4" type="video/webm" />
+    </video>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'animation',
+};
+</script>
+
+<style scoped lang="scss">
+.animation {
+  position: absolute;
+  z-index: -1;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  mask-image: url('@/assets/videos/mask.svg');
+  mask-size: cover;
+  -webkit-mask-image: url('@/assets/videos/mask.svg');
+  -webkit-mask-size: cover;
+
+  video {
+    width: 100%;
+  }
+}
+</style>
+
+
+
+// ============================================================
+// File: src\components\card.vue
+// ============================================================
+
+<template>
+  <router-link :to="link">
+    <img
+      class="brand"
+      :src="require('@/assets/vectors/brands/' + brand + '.svg')"
+      :alt="brand_alt"
+    />
+    <img
+      class="illustration"
+      :src="require('@/assets/vectors/illustrations/' + illustration + '.svg')"
+      :alt="illustration_alt"
+    />
+    <h1 v-html="title"></h1>
+  </router-link>
+</template>
+
+<script>
+export default {
+  name: 'card',
+  props: [
+    'link',
+    'brand',
+    'brand_alt',
+    'illustration',
+    'illustration_alt',
+    'label',
+    'title',
+  ],
+};
+</script>
+
+<style scoped lang="scss">
+a {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  box-sizing: border-box;
+  padding: 12px;
+  width: 152px;
+  height: 240px;
+  border-radius: 12px;
+  border-bottom: 2px solid $sky;
+  background: rgba(20, 35, 50, 0.4);
+  transition: 0.4s;
+
+  &:hover {
+    background: rgba(20, 35, 50, 0.8);
+  }
+
+  .brand {
+    height: 24px;
+  }
+
+  .illustration {
+    margin: 0 auto;
+    width: 96px;
+  }
+
+  h1 {
+    @include mili;
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  a {
+    width: 284px;
+    height: 420px;
+    padding: 24px;
+    border-radius: 16px;
+    border-bottom: 2px solid $sky;
+
+    .brand {
+      height: 32px;
+    }
+
+    .illustration {
+      width: 160px;
+    }
+
+    h1 {
+      @include mega;
+    }
+  }
+}
+</style>
+
+
+
+// ============================================================
+// File: src\components\figma.vue
+// ============================================================
+
+<template>
+  <div id="figma">
+    <div class="container">
+      <iframe :src="link" allowfullscreen></iframe>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'figma',
+  props: ['link'],
+};
+</script>
+
+<style scoped lang="scss">
+iframe {
+  width: 100%;
+  height: 197px;
+  border-radius: 12px;
+}
+
+@media only screen and (min-width: 900px) {
+  iframe {
+    border-radius: 24px;
+    height: 540px;
+  }
+}
+</style>
+
+
+
+// ============================================================
+// File: src\components\gallery.vue
+// ============================================================
+
+<template>
+  <figure>
+    <div class="container" :length="indexes.length">
+      <!-- prettier-ignore -->
+      <img v-for="index in indexes"
+        :src="require('@/assets/images/' + project + '_' + String(index) + '.png')"
+      />
+      <animation v-if="animation"></animation>
+    </div>
+  </figure>
+</template>
+
+<script>
+import animation from '@/components/animation.vue';
+
+export default {
+  name: 'gallery',
+  components: { animation },
+  props: ['project', 'indexes', 'animation'],
+};
+</script>
+
+<style scoped lang="scss">
+.container {
+  display: flex;
+  gap: 8px;
+  position: relative;
+
+  img {
+    border-radius: 12px;
+    width: 100%;
+    background-color: $sky;
+  }
+
+  // prettier-ignore
+  &[length='3'] img {
+    &:nth-of-type(3n)   { transform: translateY(-24px); }
+    &:nth-of-type(3n-2) { transform: translateY(24px); }
+  }
+
+  :deep(.animation) {
+    width: 520px;
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .container {
+    gap: 24px;
+
+    img {
+      border-radius: 24px;
+    }
+
+    // prettier-ignore
+    &[length='3'] img {
+      &:nth-of-type(3n)   { transform: translateY(56px); }
+      &:nth-of-type(3n-2) { transform: translateY(-56px); }
+    }
+
+    :deep(.animation) {
+      width: 1200px;
+    }
+  }
+}
+</style>
+
+
+
+// ============================================================
+// File: src\components\hero.vue
+// ============================================================
+
+<template>
+  <header id="hero">
+    <div class="container">
+      <animation></animation>
+      <!-- prettier-ignore -->
+      <img
+        :src="require('@/assets/vectors/illustrations/' + illustration + '.svg')"
+        :alt="alt"
+      />
+      <div>
+        <h1 v-html="title"></h1>
+        <hr />
+        <p v-html="description"></p>
+      </div>
+    </div>
+  </header>
+</template>
+
+<script>
+import animation from '@/components/animation.vue';
+
+export default {
+  name: 'hero',
+  components: { animation },
+  props: ['illustration', 'alt', 'title', 'description'],
+};
+</script>
+
+<style scoped lang="scss">
+.container {
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+
+  :deep(.animation) {
+    top: -200px;
+    right: -200px;
+    left: auto;
+    width: 540px;
+    transform: none;
+  }
+
+  img {
+    margin-left: auto;
+    width: 200px;
+    z-index: -1;
+  }
+
+  // prettier-ignore
+  div {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 24px;
+    margin-top: -16px;
+    width: 300px;
+
+    h1 { @include tera; }
+    p,
+    :deep(p) { @include micro; }
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .container {
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 64px;
+
+    :deep(.animation) {
+      top: -360px;
+      right: -280px;
+      width: 900px;
+    }
+
+    img {
+      width: 320px;
+    }
+
+    // prettier-ignore
+    div {
+      gap: 32px;
+      margin-top: 0;
+      width: 480px;
+
+      
+      h1 { @include peta; }
+      p,
+      :deep(p) { @include base; }
+    }
+  }
+}
+</style>
+
+
+
+// ============================================================
+// File: src\components\highlight.vue
+// ============================================================
+
+<template>
+  <article>
+    <div class="container">
+      <h1>
+        <em v-html="highlight"></em>
+      </h1>
+    </div>
+  </article>
+</template>
+
+<script>
+export default {
+  name: 'highlight',
+  props: ['highlight'],
+};
+</script>
+
+<style scoped lang="scss">
+.container {
+  h1 {
+    @include base;
+  }
+}
+@media only screen and (min-width: 900px) {
+  .container {
+    h1 {
+      text-align: center;
+      @include mega;
+    }
+  }
+}
+</style>
+
+
+
+// ============================================================
+// File: src\components\icon.vue
+// ============================================================
+
+<template>
+  <a :href="link">
+    <img
+      :src="require('@/assets/vectors/brands/' + icon + '.svg')"
+      :alt="alt"
+    />
+  </a>
+</template>
+
+<script>
+export default {
+  name: 'icon',
+  props: ['link', 'icon', 'alt'],
+};
+</script>
+
+<style scoped lang="scss">
+img {
+  height: 20px;
+}
+
+@media only screen and (min-width: 900px) {
+  img {
+    height: 24px;
+  }
+}
+</style>
+
+
+
+// ============================================================
+// File: src\components\info.vue
+// ============================================================
+
+<template>
+  <aside id="meta">
+    <dl class="container">
+      <div v-for="i in [0, 1, 2]">
+        <dt><em v-html="labels[i]"></em></dt>
+        <dd v-html="items[i]"></dd>
+      </div>
+
+      <div>
+        <dt><em v-html="labels[3]"></em></dt>
+        <div>
+          <dd v-for="item in items[3]" v-html="item"></dd>
+        </div>
+      </div>
+    </dl>
+  </aside>
+</template>
+
+<script>
+export default {
+  name: 'info',
+  props: ['labels', 'items'],
+};
+</script>
+
+<style scoped lang="scss">
+.container {
+  display: grid;
+  justify-content: unset;
+  gap: 12px;
+  grid-template-areas:
+    'partner  skills'
+    'location skills'
+    'year     skills';
+
+  /* prettier-ignore */
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    &:nth-child(1) { grid-area: partner; }
+    &:nth-child(2) { grid-area: location; }
+    &:nth-child(3) { grid-area: year; }
+    &:nth-child(4) { grid-area: skills; }
+
+    &:last-child {
+      justify-content: space-between;
+      height: 100%;
+    }
+  }
+
+  dt {
+    @include nano;
+  }
+
+  dd {
+    @include micro;
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    div div:last-child {
+      flex-direction: row;
+      gap: 16px;
+    }
+
+    dt,
+    dd {
+      @include base;
+    }
+  }
+}
+</style>
+
+
+
+// ============================================================
+// File: src\components\logo.vue
+// ============================================================
+
+<template>
+  <footer>
+    <div class="container">
+      <router-link to="/">
+        <img src="@/assets/vectors/logos/ee.svg" alt="EE" />
+      </router-link>
+    </div>
+  </footer>
+</template>
+
+<script>
+export default {
+  name: 'logo',
+};
+</script>
+
+<style scoped lang="scss">
+.container {
+  display: flex;
+  justify-content: center;
+
+  img {
+    width: 40px;
+    background: $flow;
+    background-clip: text;
+    -webkit-background-clip: text;
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .container {
+    img {
+      width: 56px;
+    }
+  }
+}
+</style>
+
+
+
+// ============================================================
+// File: src\components\others.vue
+// ============================================================
+
+<template>
+  <nav>
+    <div class="container">
+      <router-link
+        v-for="i in [0, 1]"
+        :to="`/${projects[i].toLowerCase().replace(/ /g, '')}`"
+      >
+        <span><em v-html="labels[i + 7]"></em></span>
+        <h2 v-html="projects[i]"></h2>
+      </router-link>
+    </div>
+  </nav>
+</template>
+
+<script>
+export default {
+  name: 'others',
+  props: ['links', 'projects', 'labels'],
+};
+</script>
+
+<style scoped lang="scss">
+nav {
+  padding: 20px 0;
+  margin-bottom: -96px;
+  background-color: rgba($navy, 0.6);
+
+  .container {
+    justify-content: space-between;
+
+    // prettier-ignore
+    a {
+      display: flex;
+      flex-direction: column;
+
+      &:last-of-type {
+        align-items: flex-end;
+      }
+
+      span { @include nano; }
+      h2   { @include base; }
+    }
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  nav {
+    padding: 32px 0;
+    margin-bottom: -144px;
+
+    .container {
+      // prettier-ignore
+      a {
+        span { @include base; }
+        h2   { @include giga; }
+      }
+    }
+  }
+}
+</style>
+
+
+
+// ============================================================
+// File: src\components\player.vue
+// ============================================================
+
+<template>
+  <div class="video">
+    <div class="container">
+      <video autoplay playsinline loop controls muted>
+        <source
+          :src="require('@/assets/videos/' + project + '.webm')"
+          type="video/webm"
+        />
+      </video>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'player',
+  props: ['project'],
+};
+</script>
+
+<style scoped lang="scss">
+video {
+  border-radius: 12px;
+}
+
+@media only screen and (min-width: 900px) {
+  video {
+    border-radius: 24px;
+  }
+}
+</style>
+
+
+
+// ============================================================
+// File: src\components\slide.vue
+// ============================================================
+
+<template>
+  <div class="container">
+    <img
+      :src="require('@/assets/vectors/illustrations/' + illustration + '.svg')"
+      :alt="alt"
+    />
+    <div class="texts">
+      <h1 v-html="title"></h1>
+      <hr />
+      <p v-html="description"></p>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'slide',
+  props: ['illustration', 'alt', 'title', 'description'],
+};
+</script>
+
+<style scoped lang="scss">
+.container {
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+
+  img {
+    margin-left: auto;
+    width: 200px;
+    z-index: -1;
+  }
+
+  .texts {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 24px;
+    margin-top: -16px;
+    width: 300px;
+
+    h1 {
+      @include tera;
+    }
+
+    p,
+    :deep(p) {
+      @include micro;
+    }
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .container {
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 64px;
+
+    img {
+      width: 320px;
+      margin: 0 32px 0 0;
+    }
+
+    .texts {
+      gap: 32px;
+      margin-top: 0;
+      width: 420px;
+
+      h1 {
+        @include peta;
+      }
+
+      p,
+      :deep(p) {
+        @include base;
+      }
+    }
+  }
+}
+</style>
+
+
+
+// ============================================================
+// File: src\components\stage.vue
+// ============================================================
+
+<template>
+  <article>
+    <div class="container">
+      <div>
+        <span><em v-html="label"></em></span>
+        <h2 v-html="title"></h2>
+      </div>
+      <p v-html="paragraph"></p>
+    </div>
+  </article>
+</template>
+
+<script>
+export default {
+  name: 'stage',
+  props: ['label', 'title', 'paragraph'],
+};
+</script>
+
+<style scoped lang="scss">
+// prettier-ignore
+.container {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  h2 { @include kilo; }
+  span,
+  p  { @include micro; }
+}
+
+@media only screen and (min-width: 900px) {
+  // prettier-ignore
+  .container {
+    flex-direction: row;
+    gap: 64px;
+
+    p {
+      display: flex;
+      flex-shrink: 0;
+      padding-top: 32px;
+      width: 512px;
+
+    }
+    
+    h2   { @include mega; }
+    span,
+    p    { @include base; }
+  }
+}
+</style>
+
+
+
+// ============================================================
+// File: src\components\template.vue
+// ============================================================
+
+<template></template>
+
+<script>
+export default {
+  name: 'NAME',
+};
+</script>
+
+<style scoped lang="scss"></style>
+
+
+
+// ============================================================
+// File: src\components\top.vue
+// ============================================================
+
+<template>
+  <nav>
+    <div class="container">
+      <router-link to="/">
+        <img src="@/assets/vectors/logos/ericemanuel.svg" alt="Eric Emanuel" />
+      </router-link>
+
+      <ul
+        :class="{
+          en: currentLanguage == 'en',
+          pt: currentLanguage == 'pt',
+          es: currentLanguage == 'es',
+        }"
+      >
+        <li
+          v-for="language in languages"
+          :class="{ active: currentLanguage == language }"
+          @click="analyze(language)"
+        >
+          {{ language }}
+        </li>
+
+        <div class="circle"></div>
+      </ul>
+    </div>
+  </nav>
+</template>
+
+<script>
+export default {
+  name: 'top',
+
+  data() {
+    return {
+      languages: ['en', 'pt', 'es'],
+      currentLanguage: this.$i18n.locale,
+    };
+  },
+
+  methods: {
+    analyze(clickedLanguage) {
+      if (this.currentLanguage == clickedLanguage) {
+        if (window.innerWidth < 900) {
+          const currentIndex = this.languages.indexOf(this.currentLanguage);
+          const nextIndex = (currentIndex + 1) % this.languages.length;
+          const nextLanguage = this.languages[nextIndex];
+          this.changeTo(nextLanguage);
+        }
+      } else {
+        this.changeTo(clickedLanguage);
+      }
+    },
+
+    changeTo(language) {
+      this.$i18n.locale = language;
+      this.currentLanguage = language;
+      localStorage.setItem('savedLanguage', language);
+    },
+  },
+
+  mounted() {
+    const savedLanguage = localStorage.getItem('savedLanguage');
+
+    if (savedLanguage && savedLanguage !== this.currentLanguage) {
+      this.changeTo(savedLanguage);
+    }
+  },
+};
+</script>
+
+<style scoped lang="scss">
+.container {
+  justify-content: space-between;
+
+  img {
+    width: 160px;
+  }
+
+  ul {
+    position: relative;
+
+    li {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-style: italic;
+      transition: all 0.8s ease-in-out;
+
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: $white;
+
+      cursor: pointer;
+      @include micro;
+
+      &.active {
+        color: $navy;
+      }
+
+      &:not(.active) {
+        display: none;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .container {
+    img {
+      width: 200px;
+    }
+
+    ul {
+      display: flex;
+      gap: 12px;
+
+      li {
+        width: unset;
+        height: unset;
+        background-color: unset;
+
+        @include mili;
+
+        &:not(.active) {
+          display: unset;
+        }
+      }
+
+      .circle {
+        position: absolute;
+        z-index: -1;
+        top: -2px;
+        left: -4px;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background-color: $white;
+        transition: all 0.6s ease-in-out;
+      }
+
+      // prettier-ignore
+      & {
+        &.en { .circle { left: -2px; }}
+        &.pt { .circle { left: 28px; }}
+        &.es { .circle { left: 56px; }}
+      }
+    }
+  }
+}
+</style>
+
+
+
+// ============================================================
+// File: src\locales\en.json
+// ============================================================
+
+{
+  "slides": [
+    {
+      "illustration": "gears",
+      "alt": "Gears",
+      "title": "Designer and developer",
+      "description": "The <em>beautiful and functional</em> solutions you need, all in one professional"
+    },
+    {
+      "illustration": "rocket",
+      "alt": "Rocket",
+      "title": "Advertising with impact",
+      "description": "Communications that <em>value your business</em> and make your results take off!"
+    },
+    {
+      "illustration": "head",
+      "alt": "Creativity",
+      "title": "Creativity in everything",
+      "description": "For each job <em>a unique inspiration</em>,<br> for each brand a new perspective"
+    },
+    {
+      "illustration": "fire",
+      "alt": "Fire",
+      "title": "Passion for what I do",
+      "description": "To generate <em>amazing results</em> you must love what you do!"
+    }
+  ],
+  "about": {
+    "title": "Good ideas come from mixing diverse knowledge",
+    "description": "I study Design, Development, Marketing, Strategy, Music <em>— and I make amazing ramen!</em>"
+  },
+  "projects": [
+    {
+      "link": "/one",
+      "brand": "clearsale",
+      "brand_alt": "ClearSale",
+      "illustration": "globe",
+      "illustration_alt": "Globe",
+      "title": "One interface for everyone"
+    },
+    {
+      "link": "/soul",
+      "brand": "puc-rio",
+      "brand_alt": "Puc-Rio",
+      "illustration": "mind",
+      "illustration_alt": "Mind",
+      "title": "An app that reads thoughts"
+    },
+    {
+      "link": "/sesc",
+      "brand": "sesc",
+      "brand_alt": "Sesc",
+      "illustration": "link",
+      "illustration_alt": "Link",
+      "title": "Connecting cultures"
+    },
+    {
+      "link": "/gamechanger",
+      "brand": "uerj",
+      "brand_alt": "Uerj",
+      "illustration": "block",
+      "illustration_alt": "Block",
+      "title": "The innovation game"
+    },
+    {
+      "link": "/ericemanuel",
+      "brand": "ee",
+      "brand_alt": "EE",
+      "illustration": "ee",
+      "illustration_alt": "EE",
+      "title": "My own visual identity"
+    },
+    {
+      "link": "/sescgo",
+      "brand": "sesc",
+      "brand_alt": "Sesc",
+      "illustration": "map",
+      "illustration_alt": "Map",
+      "title": "The experience of exploring"
+    }
+  ],
+  "labels": [
+    "Partner",
+    "Location",
+    "Year",
+    "Skills",
+    "The challenge",
+    "The technology",
+    "The result",
+    "Previous",
+    "Next"
+  ],
+  "one": {
+    "hero": {
+      "illustration": "globe",
+      "alt": "Globe",
+      "title": "One",
+      "description": "One interface for everyone"
+    },
+    "items": [
+      "ClearSale",
+      "São Paulo",
+      "2024",
+      [
+        "Design",
+        "Research",
+        "Strategy",
+        "Leadership"
+      ]
+    ],
+    "stages": [
+      {
+        "title": "Global and scalable design",
+        "paragraph": "Developing global anti-fraud intelligence goes far beyond simple data processing. You need to create an experience that adapts to different languages, currencies, time zones, and devices. To integrate the applications developed by ClearSale, it became essential to create a robust design system, capable of guaranteeing scalability, consistency and efficiency."
+      },
+      {
+        "title": "A multidisciplinary initiative",
+        "paragraph": "One was developed based on Material Design 3 and had all its prototyping carried out in Figma, promoting collaboration between teams and continuous validation of flows. Its components were implemented as Web Components, allowing integration with different frameworks and keeping ClearSale's design system efficient and scalable."
+      },
+      {
+        "title": "Local advances, global impacts",
+        "paragraph": "At the end of its first year, One replaced the Brazilian and international portals, consolidating itself as ClearSale's main product. Since then, it has evolved to integrate all of the company's products, unifying technology, interface and, above all, the user experience."
+      }
+    ],
+    "highlight": "\"Global by serving users in all countries, but also by meeting the company's internal needs\""
+  },
+  "soul": {
+    "hero": {
+      "illustration": "mind",
+      "alt": "Mind",
+      "title": "Soul",
+      "description": "Unconscious interfaces"
+    },
+    "items": [
+      "Puc-Rio",
+      "Rio de Janeiro",
+      "2014",
+      [
+        "Development",
+        "Electronics",
+        "Design"
+      ]
+    ],
+    "stages": [
+      {
+        "title": "Connecting humans and computers",
+        "paragraph": "Communicating involves more than words – gestures, intonation and looks are part of it. We are complex, while our computers ignore these details. If a cell phone could describe its user, perhaps it would just see a hand with a giant finger. But what if we could give computers a 'soul,' allowing them to understand subtle aspects of human nature?"
+      },
+      {
+        "title": "Capturing Frequencies of Consciousness",
+        "paragraph": "Soul uses electroencephalography (EEG) to capture brain frequencies and understand the user's mental state. With a portable EEG, we can continuously measure frequencies generated by the brain and our levels of attention and meditation, allowing the computer to detect changes in the user's mental state in real time, without the user noticing."
+      },
+      {
+        "title": "A smart lighting prototype",
+        "paragraph": "To prove this concept, I developed an application that controls a lamp whose color and intensity automatically adjust to the user's unconscious needs, helping with tasks such as concentration, relaxation or sleep. The system processes data in real time and adapts the lighting until the desired objective is achieved, without the need for user intervention."
+      }
+    ],
+    "highlight": "\"If I had to summarize your project in one word, I would choose resilience\""
+  },
+  "sesc": {
+    "hero": {
+      "illustration": "link",
+      "alt": "Link",
+      "title": "Sesc",
+      "description": "Connecting cultures"
+    },
+    "items": [
+      "Sesc",
+      "Rio de Janeiro",
+      "2021",
+      [
+        "Leadership",
+        "Pesquisa",
+        "Technology",
+        "Design"
+      ]
+    ],
+    "stages": [
+      {
+        "title": "Connecting people, services and culture",
+        "paragraph": "Operating throughout Brazil, Sesc needed a digital platform capable of representing its diversity of services and audiences. More than redesigning a website, the challenge was to create an inclusive, accessible and scalable experience, connecting cultural, sporting, educational and social actions in a fluid and intuitive way."
+      },
+      {
+        "title": "Leadership in a strategic project",
+        "paragraph": "Sesc's IT, Design and Marketing teams worked in synergy to align technical needs, communication and user experience. It was up to me to be the central link between all these areas, coordinating our internal processes and demands and also the outsourced company responsible for developing the project, ensuring coherence between planning, execution and final delivery."
+      },
+      {
+        "title": "Results that connect Brazil to Sesc",
+        "paragraph": "The new Sesc website was launched in 2021, the company's 75th anniversary, and quickly established itself as one of the main channels for promoting Sesc services throughout Brazil. With an accessible interface and organized content, the portal began to connect millions of Brazilians to the institution's actions, strengthening its social mission through a modern, inclusive and strategic digital presence."
+      }
+    ],
+    "highlight": "\"Sesc.com.br now reflects the diversity and national reach of the institution\""
+  },
+  "gamechanger": {
+    "hero": {
+      "illustration": "block",
+      "alt": "Block",
+      "title": "Game Changer",
+      "description": "The game of innovation"
+    },
+    "items": [
+      "Uerj",
+      "Rio de Janeiro",
+      "2024",
+      [
+        "Game Design",
+        "Technology",
+        "Innovation"
+      ]
+    ],
+    "stages": [
+      {
+        "title": "Combining creativity and viability",
+        "paragraph": "To create a successful game it is necessary to balance creativity, technical limitations and market demands. For a solo developer, this balance becomes even more challenging. The big question is: how to create a game mechanic that is viable to implement alone and, at the same time, has commercial potential after launch?"
+      },
+      {
+        "title": "The game is born piece by piece",
+        "paragraph": "Game Changer is a turn-based strategy game prototype, made in the Godot engine and inspired by classics such as Final Fantasy Tactics and Into the Breach. Here, each movement transforms the battlefield: terrain can be destroyed, units pushed in a chain and the scenario changes with each decision, requiring flexible tactics and offering a constant strategic challenge."
+      },
+      {
+        "title": "Changing the Game",
+        "paragraph": "As a game, Game Changer offers a strategic and deeply original experience. But the project goes further: it is also a practical research into what can be created with passion, organization and technology. By providing a complete framework of feasibility — technical, economic, artistic, etc. —, it also establishes itself as a reference for other independent developers."
+      }
+    ],
+    "highlight": "\"Position, push and predict. Victory is less about attacking and more about dominating space\""
+  },
+  "ericemanuel": {
+    "hero": {
+      "illustration": "ee",
+      "alt": "EE",
+      "title": "Eric Emanuel",
+      "description": "My own visual identity"
+    },
+    "items": [
+      "Eu, myself y yo",
+      "My Office",
+      "2025",
+      [
+        "Design",
+        "Development",
+        "Technology"
+      ]
+    ],
+    "stages": [
+      {
+        "title": "A language that represents me",
+        "paragraph": "Building my own visual identity was an exercise in patience and self-knowledge. I wanted something that was more than a portfolio — I needed to create a language that communicated who I am, how I think and how I work. The challenge was to translate this into a cohesive, professional and authorial visual experience that would extend to all points of contact of my professional presentation."
+      },
+      {
+        "title": "From design to code",
+        "paragraph": "The first step was to design a brand and a design system that reflected my personality and style. I structured this entire visual in Figma, composing typographic systems, tokens and a library of reusable components. This base culminated in the implementation of this same website in a 1:1 way in Vue, with componentization, dynamic routing and modular SCSS."
+      },
+      {
+        "title": "End-to-end design",
+        "paragraph": "This project reflects my ability to combine artistic sensitivity and technical mastery in a complete process — from aesthetic conception to design system, from prototyping to implementation. Mastering the technologies involved allows me to propose viable and impactful solutions. It is an authorial expression that delivers value by transforming intention into experience."
+      }
+    ],
+    "highlight": "\"This project is me: in pixels, code and purpose\""
+  },
+  "sescgo": {
+    "hero": {
+      "illustration": "map",
+      "alt": "Map",
+      "title": "Sesc Go",
+      "description": "The experience of exploring"
+    },
+    "items": [
+      "Sesc",
+      "Rio de Janeiro",
+      "2019",
+      [
+        "Technology",
+        "Design",
+        "Innovation"
+      ]
+    ],
+    "stages": [
+      {
+        "title": "Centralizing experiences, connecting people",
+        "paragraph": "Tourism, sport, leisure, health, education. Sesc is present throughout Brazil with a broad and transformative role – but it is not always easy for the public to access this information. What if it were possible to bring the same feeling of exploring all of this in person to the virtual world?"
+      },
+      {
+        "title": "One app, multiple possibilities",
+        "paragraph": "Sesc Go is an app focused on exploration and discovery, offering users a macro view of the institution and also providing detailed access to the activities of each of its units. It was also the first application of Sesc's new design system, providing a modern, accessible and open source-based experience."
+      },
+      {
+        "title": "An integrated and intuitive digital ecosystem",
+        "paragraph": "The concept of Sesc+ and the scope of the design system made it even easier for Sesc to get closer to its audience. By combining a panoramic vision and attention to detail, the project has established itself as a reference in user experience and innovation within the company and in the public-private sector."
+      }
+    ],
+    "highlight": "\"A journey of empathy and rediscovery of how Sesc communicates with people\""
+  },
+  "privacy": {
+    "stages": [
+      {
+        "label": "Privacy Policy",
+        "title": "What you need to know about Danei",
+        "paragraph": "This Privacy Policy explains how Danei handles information when you use the app. Danei is a personal finance app designed to help users organize their financial life in a simple and visual way. Last updated: May 2026."
+      },
+      {
+        "label": "Financial data",
+        "title": "Your financial information stays on your device",
+        "paragraph": "The financial information entered by the user is stored locally on the user's device. Danei does not send transaction titles, notes, amounts, salary information, debt information, or personal financial records to our servers in this version of the app."
+      },
+      {
+        "label": "Analytics",
+        "title": "We use basic analytics to improve the app",
+        "paragraph": "Danei may collect basic analytics data to understand how the app is used and to improve the experience. This may include events such as opening screens, adding, editing, or deleting transactions, using filters, app version, device information, and general usage behavior."
+      },
+      {
+        "label": "Data sharing",
+        "title": "We do not sell user data",
+        "paragraph": "Danei does not sell user data. The app may use third-party services, such as analytics providers, to process basic usage data needed to understand app performance and improve the product. These services process data according to their own privacy and security practices."
+      },
+      {
+        "label": "Storage and deletion",
+        "title": "You control your local data",
+        "paragraph": "Financial data entered in Danei is stored locally on the user's device. Users can delete local app data by clearing the app data in their device settings or uninstalling the app."
+      },
+      {
+        "label": "Future updates",
+        "title": "This policy may change as Danei evolves",
+        "paragraph": "If future versions of Danei introduce accounts, cloud sync, backups, or paid plans, this Privacy Policy may be updated to explain how those features handle data. When changes are made, the updated version will be published on this page with a new update date."
+      },
+      {
+        "label": "Children's privacy",
+        "title": "Danei is not directed to children",
+        "paragraph": "Danei is not designed or intended for use by children. We do not knowingly request, collect, store, or process personal information from children through the app."
+      },
+      {
+        "label": "Contact me",
+        "title": "Questions, requests, and privacy support",
+        "paragraph": "If you have any questions, concerns, or requests related to this Privacy Policy or the way Danei handles information, you can contact me at: ericemanuel@gmail.com"
+      }
+    ]
+  }
+}
+
+
+// ============================================================
+// File: src\locales\es.json
+// ============================================================
+
+{
+  "slides": [
+    {
+      "illustration": "gears",
+      "alt": "Engrenajes",
+      "title": "Diseñador y desarrollador",
+      "description": "Las soluciones <em>bonitas y funcionales</em> que necesitas, juntas en un solo profesional"
+    },
+    {
+      "illustration": "rocket",
+      "alt": "Cohete",
+      "title": "Publicidad con impacto",
+      "description": "Comunicaciones que <em>valoran tu negocio</em> y hacen que tus resultados se disparen!"
+    },
+    {
+      "illustration": "head",
+      "alt": "Creatividad",
+      "title": "Creatividad en todo",
+      "description": "Para cada obra <em>una inspiración única</em>, para cada marca una nueva perspectiva"
+    },
+    {
+      "illustration": "fire",
+      "alt": "Fuego",
+      "title": "Pasión por lo que hago",
+      "description": "Para generar <em>resultados increíbles</em> tienes que amar lo que haces!"
+    }
+  ],
+  "about": {
+    "title": "Buenas ideas nacen del encuentro de conocimientos",
+    "description": "Yo estudio Diseño, Desarrollo, Marketing, Estrategia, Música <em>— y hago un ramen increíble!</em>"
+  },
+  "projects": [
+    {
+      "link": "/one",
+      "brand": "clearsale",
+      "brand_alt": "ClearSale",
+      "illustration": "globe",
+      "illustration_alt": "Globo",
+      "title": "Una interfaz para todos"
+    },
+    {
+      "link": "/soul",
+      "brand": "puc-rio",
+      "brand_alt": "Puc-Rio",
+      "illustration": "mind",
+      "illustration_alt": "Mente",
+      "title": "Una app que lee pensamientos"
+    },
+    {
+      "link": "/sesc",
+      "brand": "sesc",
+      "brand_alt": "Sesc",
+      "illustration": "link",
+      "illustration_alt": "Link",
+      "title": "Conectando culturas"
+    },
+    {
+      "link": "/gamechanger",
+      "brand": "uerj",
+      "brand_alt": "Uerj",
+      "illustration": "block",
+      "illustration_alt": "Bloque",
+      "title": "El juego de la innovación"
+    },
+    {
+      "link": "/ericemanuel",
+      "brand": "ee",
+      "brand_alt": "EE",
+      "illustration": "ee",
+      "illustration_alt": "EE",
+      "title": "Mi propia identidad"
+    },
+    {
+      "link": "/sescgo",
+      "brand": "sesc",
+      "brand_alt": "Sesc",
+      "illustration": "map",
+      "illustration_alt": "Mapa",
+      "title": "La experiencia de explorar"
+    }
+  ],
+  "labels": [
+    "Pareja",
+    "Ubicación",
+    "Año",
+    "Habilidades",
+    "El desafío",
+    "La tecnologia",
+    "El resultado",
+    "Anterior",
+    "Próximo"
+  ],
+  "one": {
+    "hero": {
+      "illustration": "globe",
+      "alt": "Globo",
+      "title": "One",
+      "description": "Una interfaz para todos"
+    },
+    "items": [
+      "ClearSale",
+      "São Paulo",
+      "2024",
+      [
+        "Diseño",
+        "Investigación",
+        "Estrategia",
+        "Liderazgo"
+      ]
+    ],
+    "stages": [
+      {
+        "title": "Diseño global y escalable",
+        "paragraph": "El desarrollo de inteligencia antifraude global va mucho más allá del simple procesamiento de datos. Debe crear una experiencia que se adapte a diferentes idiomas, monedas, zonas horarias y dispositivos. Para integrar las aplicaciones desarrolladas por ClearSale, se volvió esencial crear un sistema de diseño robusto, capaz de garantizar escalabilidad, consistencia y eficiencia."
+      },
+      {
+        "title": "Una iniciativa multidisciplinar",
+        "paragraph": "Uno fue desarrollado en base a Material Design 3 y todos sus prototipos se realizaron en Figma, promoviendo la colaboración entre equipos y la validación continua de flujos. Sus componentes fueron implementados como Componentes Web, permitiendo la integración con diferentes frameworks y manteniendo el sistema de diseño de ClearSale eficiente y escalable."
+      },
+      {
+        "title": "Avances locales, impactos globales",
+        "paragraph": "Al final de su primer año, One reemplazó a los portales brasileño e internacional, consolidándose como el principal producto de ClearSale. Desde entonces, ha evolucionado hasta integrar todos los productos de la empresa, unificando tecnología, interfaz y, sobre todo, la experiencia de usuario."
+      }
+    ],
+    "highlight": "Global al atender a usuarios de todos los países, pero también satisfaciendo las necesidades internas de la empresa"
+  },
+  "soul": {
+    "hero": {
+      "illustration": "mind",
+      "alt": "Mente",
+      "title": "Soul",
+      "description": "Interfaces inconscientes"
+    },
+    "items": [
+      "Puc-Rio",
+      "Río de Janeiro",
+      "2014",
+      [
+        "Desarrollo",
+        "Electrónica",
+        "Diseño"
+      ]
+    ],
+    "stages": [
+      {
+        "title": "Conectando humanos y computadoras",
+        "paragraph": "Comunicar implica más que palabras: los gestos, la entonación y las miradas son parte de ello. Somos complejos, mientras que nuestras computadoras ignoran estos detalles. Si un teléfono móvil pudiera describir a su usuario, tal vez sólo vería una mano con un dedo gigante. Pero ¿qué pasaría si pudiéramos darle a las computadoras un 'alma' que les permitiera comprender aspectos sutiles de la naturaleza humana?"
+      },
+      {
+        "title": "Capturando frecuencias de la conciencia",
+        "paragraph": "Soul utiliza electroencefalografía (EEG) para capturar frecuencias cerebrales y comprender el estado mental del usuario. Con un EEG portátil podemos medir continuamente las frecuencias generadas por el cerebro y nuestros niveles de atención y meditación, permitiendo que el ordenador detecte cambios en el estado mental del usuario en tiempo real, sin que éste se dé cuenta."
+      },
+      {
+        "title": "Un prototipo de iluminación inteligente",
+        "paragraph": "Para probar este concepto, desarrollé una aplicación que controla una lámpara cuyo color e intensidad se ajustan automáticamente a las necesidades inconscientes del usuario, ayudando en tareas como la concentración, la relajación o el sueño. El sistema procesa datos en tiempo real y adapta la iluminación hasta conseguir el objetivo deseado, sin necesidad de intervención del usuario."
+      }
+    ],
+    "highlight": "\"Si tuviera que resumir tu proyecto en una palabra, elegiría resiliencia\""
+  },
+  "sesc": {
+    "hero": {
+      "illustration": "link",
+      "alt": "Enlace",
+      "title": "Sesc",
+      "description": "Conectando culturas"
+    },
+    "items": [
+      "Sesc",
+      "Río de Janeiro",
+      "2021",
+      [
+        "Liderazgo",
+        "Investigación",
+        "Tecnología",
+        "Diseño"
+      ]
+    ],
+    "stages": [
+      {
+        "title": "Conectando personas, servicios y cultura",
+        "paragraph": "Operando en todo Brasil, el Sesc necesitaba una plataforma digital capaz de representar su diversidad de servicios y audiencias. Más que rediseñar un sitio web, el desafío era crear una experiencia inclusiva, accesible y escalable, conectando acciones culturales, deportivas, educativas y sociales de forma fluida e intuitiva."
+      },
+      {
+        "title": "Liderazgo en un proyecto estratégico",
+        "paragraph": "Los equipos de TI, Diseño y Marketing del Sesc trabajaron en sinergia para alinear las necesidades técnicas, la comunicación y la experiencia del usuario. Me correspondía ser el vínculo central entre todas estas áreas, coordinando nuestros procesos y demandas internas y también la empresa externalizada encargada de desarrollar el proyecto, asegurando la coherencia entre la planificación, ejecución y entrega final."
+      },
+      {
+        "title": "Resultados que conectan Brasil con el Sesc",
+        "paragraph": "El nuevo sitio web del Sesc fue lanzado en 2021, en el 75º aniversario de la empresa, y rápidamente se consolidó como uno de los principales canales de promoción de los servicios del Sesc en todo Brasil. Con una interfaz accesible y contenidos organizados, el portal pasó a conectar a millones de brasileños con las acciones de la institución, fortaleciendo su misión social a través de una presencia digital moderna, inclusiva y estratégica."
+      }
+    ],
+    "highlight": "\"Sesc.com.br ahora refleja la diversidad y el alcance nacional de la institución\""
+  },
+  "gamechanger": {
+    "hero": {
+      "illustration": "block",
+      "alt": "Bloque",
+      "title": "Game Changer",
+      "description": "El juego de la innovación"
+    },
+    "items": [
+      "Uerj",
+      "Brasil",
+      "2024",
+      [
+        "Diseño de juegos",
+        "Tecnología",
+        "Innovación"
+      ]
+    ],
+    "stages": [
+      {
+        "title": "Combinando creatividad y viabilidad",
+        "paragraph": "Para crear un juego exitoso es necesario equilibrar la creatividad, las limitaciones técnicas y las demandas del mercado. Para un desarrollador en solitario, este equilibrio se vuelve aún más desafiante. La gran pregunta es: ¿cómo crear una mecánica de juego que sea viable de implementar por sí sola y, al mismo tiempo, tenga potencial comercial después del lanzamiento?"
+      },
+      {
+        "title": "El juego nace pieza a pieza",
+        "paragraph": "Game Changer es un prototipo de juego de estrategia por turnos, creado en el motor Godot e inspirado en clásicos como Final Fantasy Tactics e Into the Breach. Aquí, cada movimiento transforma el campo de batalla: el terreno puede ser destruido, las unidades pueden ser empujadas en cadena y el escenario cambia con cada decisión, lo que requiere tácticas flexibles y ofrece un desafío estratégico constante."
+      },
+      {
+        "title": "Cambiando el juego",
+        "paragraph": "Como juego, Game Changer ofrece una experiencia estratégica y profundamente original. Pero el proyecto va más allá: es también una investigación práctica sobre lo que se puede crear con pasión, organización y tecnología. Al proporcionar un marco completo de viabilidad –técnica, económica, artística, etc.–, también se consolida como un referente para otros desarrolladores independientes."
+      }
+    ],
+    "highlight": "\"Colocar, empujar y predecir. La victoria se trata menos de atacar y más de dominar el espacio\""
+  },
+  "ericemanuel": {
+    "hero": {
+      "illustration": "ee",
+      "alt": "EE",
+      "title": "Eric Emanuel",
+      "description": "Mi propia identidad"
+    },
+    "items": [
+      "Eu, myself y yo",
+      "Mi oficina",
+      "2025",
+      [
+        "Diseño",
+        "Desarrollo",
+        "Tecnología"
+      ]
+    ],
+    "stages": [
+      {
+        "title": "Un idioma que me representa",
+        "paragraph": "Construir mi propia identidad visual fue un ejercicio de paciencia y autoconocimiento. Quería algo que fuera más que un portfolio: necesitaba crear un lenguaje que comunicara quién soy, cómo pienso y cómo trabajo. El desafío fue traducir esto en una experiencia visual cohesiva, profesional y autoral que se extendiera a todos los puntos de contacto de mi presentación profesional."
+      },
+      {
+        "title": "Del diseño al código",
+        "paragraph": "El primer paso fue diseñar una marca y un sistema de diseño que reflejara mi personalidad y estilo. Estructuré todo este visual en Figma, componiendo sistemas tipográficos, tokens y una biblioteca de componentes reutilizables. Esta base culminó con la implementación de este mismo sitio de manera 1:1 en Vue, con componentización, enrutamiento dinámico y SCSS modular."
+      },
+      {
+        "title": "Diseño de extremo a extremo",
+        "paragraph": "Este proyecto refleja mi capacidad de unir la sensibilidad artística y el dominio técnico en un proceso completo: desde la concepción estética hasta el sistema de diseño, desde la creación de prototipos hasta la implementación. El dominio de las tecnologías involucradas me permite proponer soluciones viables e impactantes. Es una expresión de autor que aporta valor al transformar la intención en experiencia."
+      }
+    ],
+    "highlight": "\"Este proyecto soy yo: en píxeles, código y propósito\""
+  },
+  "sescgo": {
+    "hero": {
+      "illustration": "map",
+      "alt": "Mapa",
+      "title": "Sesc Go",
+      "description": "La experiencia de explorar"
+    },
+    "items": [
+      "Sesc",
+      "Río de Janeiro",
+      "2019",
+      [
+        "Tecnología",
+        "Diseño",
+        "Innovación"
+      ]
+    ],
+    "stages": [
+      {
+        "title": "Centralizando experiencias, conectando personas",
+        "paragraph": "Turismo, deporte, ocio, salud, educación. El Sesc está presente en todo Brasil con un papel amplio y transformador, pero no siempre es fácil para el público acceder a esta información. ¿Y si fuera posible llevar la misma sensación de explorar todo esto en persona al mundo virtual?"
+      },
+      {
+        "title": "Una aplicación, múltiples posibilidades",
+        "paragraph": "Sesc Go es una aplicación enfocada a la exploración y el descubrimiento, que ofrece a los usuarios una visión macro de la institución y también brinda acceso detallado a las actividades de cada una de sus unidades. También fue la primera aplicación del nuevo sistema de diseño de Sesc, que brinda una experiencia moderna, accesible y basada en código abierto."
+      },
+      {
+        "title": "Un ecosistema digital integrado e intuitivo",
+        "paragraph": "El concepto de Sesc+ y el alcance del sistema de diseño facilitaron aún más el acercamiento del Sesc a su público. Combinando visión panorámica y atención al detalle, el proyecto se ha consolidado como un referente en experiencia de usuario e innovación dentro de la empresa y en el sector público-privado."
+      }
+    ],
+    "highlight": "\"Un viaje de empatía y redescubrimiento de cómo el Sesc se comunica con las personas\""
+  },
+  "privacy": {
+    "stages": [
+      {
+        "label": "Política de Privacidad",
+        "title": "Lo que necesitas saber sobre Danei",
+        "paragraph": "Esta Política de Privacidad explica cómo Danei maneja la información cuando usas la app. Danei es una app de finanzas personales creada para ayudar a los usuarios a organizar su vida financiera de forma simple y visual. Última actualización: mayo de 2026."
+      },
+      {
+        "label": "Datos financieros",
+        "title": "Tu información financiera permanece en tu dispositivo",
+        "paragraph": "La información financiera ingresada por el usuario se almacena localmente en el dispositivo del propio usuario. En esta versión de la app, Danei no envía títulos de transacciones, notas, montos, información de salario, información de deudas ni registros financieros personales a nuestros servidores."
+      },
+      {
+        "label": "Analytics",
+        "title": "Usamos analytics básico para mejorar la app",
+        "paragraph": "Danei puede recopilar datos básicos de analytics para entender cómo se usa la app y mejorar la experiencia. Esto puede incluir eventos como apertura de pantallas, creación, edición o eliminación de transacciones, uso de filtros, versión de la app, información del dispositivo y comportamiento general de uso."
+      },
+      {
+        "label": "Compartir datos",
+        "title": "No vendemos datos de usuarios",
+        "paragraph": "Danei no vende datos de usuarios. La app puede usar servicios de terceros, como proveedores de analytics, para procesar datos básicos de uso necesarios para entender el rendimiento de la app y mejorar el producto. Estos servicios procesan datos de acuerdo con sus propias prácticas de privacidad y seguridad."
+      },
+      {
+        "label": "Almacenamiento y eliminación",
+        "title": "Tú controlas tus datos locales",
+        "paragraph": "Los datos financieros ingresados en Danei se almacenan localmente en el dispositivo del usuario. Los usuarios pueden eliminar los datos locales de la app borrando los datos de la aplicación en la configuración del dispositivo o desinstalando la app."
+      },
+      {
+        "label": "Actualizaciones futuras",
+        "title": "Esta política puede cambiar a medida que Danei evolucione",
+        "paragraph": "Si futuras versiones de Danei incorporan cuentas, sincronización en la nube, copias de seguridad o planes pagos, esta Política de Privacidad podrá actualizarse para explicar cómo esas funciones manejan los datos. Cuando haya cambios, la versión actualizada será publicada en esta página con una nueva fecha de actualización."
+      },
+      {
+        "label": "Privacidad infantil",
+        "title": "Danei no está dirigida a niños",
+        "paragraph": "Danei no fue diseñada ni está destinada para ser usada por niños. No solicitamos, recopilamos, almacenamos ni procesamos intencionalmente información personal de niños a través de la app."
+      },
+      {
+        "label": "Contáctame",
+        "title": "Dudas, solicitudes y soporte de privacidad",
+        "paragraph": "Si tienes dudas, preocupaciones o solicitudes relacionadas con esta Política de Privacidad o con la forma en que Danei maneja la información, puedes contactarme por correo electrónico: ericemanuel@gmail.com"
+      }
+    ]
+  }
+}
+
+
+// ============================================================
+// File: src\locales\pt.json
+// ============================================================
+
+{
+  "slides": [
+    {
+      "illustration": "gears",
+      "alt": "Engrenagens",
+      "title": "Designer e desenvolvedor",
+      "description": "As soluções <em>bonitas e funcionais</em> que você precisa, juntas em um único profissional"
+    },
+    {
+      "illustration": "rocket",
+      "alt": "Foguete",
+      "title": "Publicidade com impacto",
+      "description": "Comunicações que <em>valorizam o seu negócio</em> e fazem seus resultados decolarem!"
+    },
+    {
+      "illustration": "head",
+      "alt": "Criatividade",
+      "title": "Criatividade em tudo",
+      "description": "Para cada trabalho <em>uma inspiração única</em>, para cada marca uma nova perspectiva"
+    },
+    {
+      "illustration": "fire",
+      "alt": "Fogo",
+      "title": "Paixão pelo o que faço",
+      "description": "Para gerar <em>resultados incríveis</em> é preciso amar o que se faz!"
+    }
+  ],
+  "about": {
+    "title": "Boas ideias vêm do encontro de vários conhecimentos",
+    "description": "Eu estudo Design, Desenvolvimento, Marketing, Estratégia, Música <em>— e faço um miojo incrível!</em>"
+  },
+  "projects": [
+    {
+      "link": "/one",
+      "brand": "clearsale",
+      "brand_alt": "ClearSale",
+      "illustration": "globe",
+      "illustration_alt": "Globo",
+      "title": "Uma interface para todos"
+    },
+    {
+      "link": "/soul",
+      "brand": "puc-rio",
+      "brand_alt": "Puc-Rio",
+      "illustration": "mind",
+      "illustration_alt": "Mente",
+      "title": "Um app que lê pensamentos"
+    },
+    {
+      "link": "/sesc",
+      "brand": "sesc",
+      "brand_alt": "Sesc",
+      "illustration": "link",
+      "illustration_alt": "Link",
+      "title": "Conectando culturas"
+    },
+    {
+      "link": "/gamechanger",
+      "brand": "uerj",
+      "brand_alt": "Uerj",
+      "illustration": "block",
+      "illustration_alt": "Bloco",
+      "title": "O jogo da inovação"
+    },
+    {
+      "link": "/ericemanuel",
+      "brand": "ee",
+      "brand_alt": "EE",
+      "illustration": "ee",
+      "illustration_alt": "EE",
+      "title": "Minha própria identidade"
+    },
+    {
+      "link": "/sescgo",
+      "brand": "sesc",
+      "brand_alt": "Sesc",
+      "illustration": "map",
+      "illustration_alt": "Mapa",
+      "title": "A experiência de explorar"
+    }
+  ],
+  "labels": [
+    "Parceiro",
+    "Local",
+    "Ano",
+    "Habilidades",
+    "O desafio",
+    "A tecnologia",
+    "O resultado",
+    "Anterior",
+    "Próximo"
+  ],
+  "one": {
+    "hero": {
+      "illustration": "globe",
+      "alt": "Globo",
+      "title": "One",
+      "description": "Uma interface para todos"
+    },
+    "items": [
+      "ClearSale",
+      "São Paulo",
+      "2024",
+      [
+        "Design",
+        "Pesquisa",
+        "Estratégia",
+        "Liderança"
+      ]
+    ],
+    "stages": [
+      {
+        "title": "Design global e escalável",
+        "paragraph": "Desenvolver uma inteligência antifraude global vai muito além do simples processamento de dados. É necessário criar uma experiência que se adapte a diferentes idiomas, moedas, fusos horários e dispositivos. Para integrar as aplicações desenvolvidas pela ClearSale, tornou-se essencial a criação de um design system robusto, capaz de garantir escalabilidade, consistência e eficiência."
+      },
+      {
+        "title": "Uma iniciativa multidisciplinar",
+        "paragraph": "O One foi desenvolvido com base no Material Design 3 e teve toda sua prototipação realizada no Figma, promovendo colaboração entre as equipes e validação contínua dos fluxos. Seus componentes foram implementados como Web Components, permitindo integração com diferentes frameworks e mantendo o design system da ClearSale eficiente e escalável."
+      },
+      {
+        "title": "Avanços locais, impactos globais",
+        "paragraph": "Ao final do seu primeiro ano, o One substituiu os portais brasileiro e internacional, consolidando-se como o principal produto da ClearSale. Desde então, evoluiu para integrar todos os produtos da empresa, unificando tecnologia, interface e, acima de tudo, a experiência do usuário."
+      }
+    ],
+    "highlight": "\"Global ao atender usuários em todos os países, mas também ao suprir as necessidades internas da empresa\""
+  },
+  "soul": {
+    "hero": {
+      "illustration": "mind",
+      "alt": "Mind",
+      "title": "Soul",
+      "description": "Interfaces inconscientes"
+    },
+    "items": [
+      "Puc-Rio",
+      "Rio de Janeiro",
+      "2014",
+      [
+        "Desenvolvimento",
+        "Eletrônica",
+        "Design"
+      ]
+    ],
+    "stages": [
+      {
+        "title": "Conectando humanos e computadores",
+        "paragraph": "Comunicar-se envolve mais do que palavras – gestos, entonação e olhares fazem parte. Somos complexos, enquanto nossos computadores ignoram esses detalhes. Se um celular pudesse descrever seu usuário, talvez visse apenas uma mão com um dedo gigante. Mas, e se pudéssemos dar uma 'alma' aos computadores, permitindo que entendessem aspectos sutis da natureza humana?"
+      },
+      {
+        "title": "Capturando frequências da consciência",
+        "paragraph": "O Soul usa eletroencefalografia (EEG) para captar as frequências cerebrais e entender o estado mental do usuário. Com um EEG portátil, podemos medir continuamente frequências geradas pelo cérebro e nossos níveis de atenção e meditação, permitindo que o computador detecte mudanças no estado mental do usuário em tempo real, sem que ele perceba."
+      },
+      {
+        "title": "Um protótipo de iluminação inteligente",
+        "paragraph": "Para provar esse conceito, desenvolvi um aplicativo que controla uma lâmpada cuja cor e intensidade se ajustam automaticamente às necessidades inconscientes do usuário, auxiliando em tarefas como concentração, relaxamento ou sono. O sistema processa os dados em tempo real e adapta a iluminação até atingir o objetivo desejado, sem necessidade de intervenção do usuário."
+      }
+    ],
+    "highlight": "\"Se eu tivesse que resumir o seu projeto em uma palavra, escolheria resiliência\""
+  },
+  "sesc": {
+    "hero": {
+      "illustration": "link",
+      "alt": "Link",
+      "title": "Sesc",
+      "description": "Conectando culturas"
+    },
+    "items": [
+      "Sesc",
+      "Rio de Janeiro",
+      "2021",
+      [
+        "Liderança",
+        "Pesquisa",
+        "Tecnologia",
+        "Design"
+      ]
+    ],
+    "stages": [
+      {
+        "title": "Conectando pessoas, serviços e cultura",
+        "paragraph": "Com atuação em todo o Brasil, o Sesc precisava de uma plataforma digital capaz de representar sua diversidade de serviços e públicos. Mais do que reformular um site, o desafio era criar uma experiência inclusiva, acessível e escalável, conectando ações culturais, esportivas, educativas e sociais de forma fluida e intuitiva."
+      },
+      {
+        "title": "Liderança em um projeto estratégico",
+        "paragraph": "As equipes de TI, Design e Marketing do Sesc trabalharam em sinergia para alinhar necessidades técnicas, comunicação e experiência do usuário. Coube a mim ser o elo central entre todas essas áreas, coordenando nossos processos e demandas internas e também a empresa terceirizada responsável pelo desenvolvimento do projeto, garantindo a coerência entre planejamento, execução e entrega final."
+      },
+      {
+        "title": "Resultados que conectam o Brasil ao Sesc",
+        "paragraph": "O novo site do Sesc foi lançado em 2021, aniversário de 75 anos da empresa, e rapidamente se consolidou como um dos principais canais de divulgação dos serviços do Sesc em todo o Brasil. Com uma interface acessível e conteúdo organizado, o portal passou a conectar milhões de brasileiros às ações da instituição, fortalecendo sua missão social por meio de uma presença digital moderna, inclusiva e estratégica."
+      }
+    ],
+    "highlight": "\"O Sesc.com.br agora reflete a diversidade e o alcance nacional da instituição\""
+  },
+  "gamechanger": {
+    "hero": {
+      "illustration": "block",
+      "alt": "Bloco",
+      "title": "Game Changer",
+      "description": "O jogo da inovação"
+    },
+    "items": [
+      "Uerj",
+      "Rio de Janeiro",
+      "2024",
+      [
+        "Game Design",
+        "Tecnologia",
+        "Inovação"
+      ]
+    ],
+    "stages": [
+      {
+        "title": "Unindo criatividade e viabilidade",
+        "paragraph": "Para criar um jogo de sucesso é preciso equilibrar criatividade, limitações técnicas e as exigências do mercado. Para um desenvolvedor solo, esse equilíbrio se torna ainda mais desafiador. A grande questão é: como criar uma mecânica de jogo que seja viável de implementar sozinho e, ao mesmo tempo, tenha potencial comercial após o lançamento?"
+      },
+      {
+        "title": "O jogo nasce peça por peça",
+        "paragraph": "Game Changer é um protótipo de jogo de estratégia por turnos, feito na engine Godot e inspirado em clássicos como Final Fantasy Tactics e Into the Breach. Aqui, cada movimento transforma o campo de batalha: terrenos podem ser destruídos, unidades empurradas em cadeia e o cenário muda a cada decisão, exigindo táticas flexíveis e oferecendo um desafio estratégico constante."
+      },
+      {
+        "title": "Mudando o Jogo",
+        "paragraph": "Como jogo, Game Changer oferece uma experiência estratégica e profundamente original. Mas o projeto vai além: é também uma pesquisa prática sobre o que se pode criar com paixão, organização e tecnologia. Ao disponibilizar um framework completo de viabilidades — técnica, econômica, artística, etc. —, ele também se consolida como uma referência para outros desenvolvedores independentes."
+      }
+    ],
+    "highlight": "\"Posicionar, empurrar e prever. A vitória é menos sobre atacar e mais sobre dominar o espaço\""
+  },
+  "ericemanuel": {
+    "hero": {
+      "illustration": "ee",
+      "alt": "EE",
+      "title": "Eric Emanuel",
+      "description": "Minha própria identidade"
+    },
+    "items": [
+      "Eu, myself y yo",
+      "Meu escritório",
+      "2025",
+      [
+        "Design",
+        "Desenvolvimento",
+        "Tecnologia"
+      ]
+    ],
+    "stages": [
+      {
+        "title": "Uma linguagem que me representa",
+        "paragraph": "Construir minha própria identidade visual foi um exercício de paciência e autoconhecimento. Eu queria algo que fosse mais do que um portfólio — precisava criar uma linguagem que comunicasse quem sou, como penso e como trabalho. O desafio era traduzir isso em uma experiência visual coesa, profissional e autoral, que se estendesse a todos os pontos de contato da minha apresentação profissional."
+      },
+      {
+        "title": "Do traço ao código",
+        "paragraph": "O primeiro passo foi desenhar uma marca e um design system que traduzissem minha personalidade e estilo. Estruturei todo esse visual no Figma, compondo sistemas tipográficos, tokens e uma biblioteca de componentes reutilizáveis. Essa base culminou na implementação deste mesmo site de forma 1:1 em Vue, com componentização, roteamento dinâmico e SCSS modular."
+      },
+      {
+        "title": "Design de ponta a ponta",
+        "paragraph": "Este projeto reflete minha capacidade de unir sensibilidade artística e domínio técnico em um processo completo — da concepção estética ao design system, da prototipação à implementação. Dominar as tecnologias envolvidas me permite propor soluções viáveis e impactantes. É uma expressão autoral que entrega valor ao transformar intenção em experiência."
+      }
+    ],
+    "highlight": "\"Este projeto sou eu: em pixels, código e propósito\""
+  },
+  "sescgo": {
+    "hero": {
+      "illustration": "map",
+      "alt": "Mapa",
+      "title": "Sesc Go",
+      "description": "A experiência de explorar"
+    },
+    "items": [
+      "Sesc",
+      "Rio de Janeiro",
+      "2019",
+      [
+        "Tecnologia",
+        "Design",
+        "Inovação"
+      ]
+    ],
+    "stages": [
+      {
+        "title": "Centralizando experiências, conectando pessoas",
+        "paragraph": "Turismo, esporte, lazer, saúde, educação. O Sesc é presença em todo o Brasil com uma atuação ampla e transformadora – mas nem sempre é fácil para o público acessar essas informações. E se fosse possível trazer para o virtual a mesma sensação de explorar tudo isso presencialmente?"
+      },
+      {
+        "title": "Um aplicativo, múltiplas possibilidades",
+        "paragraph": "O Sesc Go é um app com foco na exploração e descoberta, oferecendo aos usuários uma visão macro da instituição e também dá acesso detalhado às atividades de cada uma de suas unidades. Ele foi também a primeira aplicação do novo design system do Sesc, proporcionando uma experiência moderna, acessível e baseada em código aberto."
+      },
+      {
+        "title": "Um ecossistema digital integrado e intuitivo",
+        "paragraph": "O conceito do Sesc+ e a abragência do design system facilitou ainda mais a aproximação do Sesc com seu público. Ao unir visão panorâmica e atenção aos detalhes, o projeto se consolidou como referência em experiência do usuário e inovação dentro da empresa e no setor público-privado."
+      }
+    ],
+    "highlight": "\"Uma jornada de empatia e redescoberta de como o Sesc se comunica com as pessoas\""
+  },
+  "privacy": {
+    "stages": [
+      {
+        "label": "Política de Privacidade",
+        "title": "O que você precisa saber sobre o Danei",
+        "paragraph": "Esta Política de Privacidade explica como o Danei lida com informações quando você usa o app. O Danei é um app de finanças pessoais criado para ajudar usuários a organizarem sua vida financeira de forma simples e visual. Última atualização: maio de 2026."
+      },
+      {
+        "label": "Dados financeiros",
+        "title": "Suas informações financeiras ficam no seu dispositivo",
+        "paragraph": "As informações financeiras inseridas pelo usuário são armazenadas localmente no dispositivo do próprio usuário. Nesta versão do app, o Danei não envia títulos de transações, notas, valores, informações de salário, informações de dívidas ou registros financeiros pessoais para nossos servidores."
+      },
+      {
+        "label": "Analytics",
+        "title": "Usamos analytics básico para melhorar o app",
+        "paragraph": "O Danei pode coletar dados básicos de analytics para entender como o app é usado e melhorar a experiência. Isso pode incluir eventos como abertura de telas, criação, edição ou exclusão de transações, uso de filtros, versão do app, informações do dispositivo e comportamento geral de uso."
+      },
+      {
+        "label": "Compartilhamento de dados",
+        "title": "Nós não vendemos dados de usuários",
+        "paragraph": "O Danei não vende dados de usuários. O app pode usar serviços de terceiros, como provedores de analytics, para processar dados básicos de uso necessários para entender o desempenho do app e melhorar o produto. Esses serviços processam dados de acordo com suas próprias práticas de privacidade e segurança."
+      },
+      {
+        "label": "Armazenamento e exclusão",
+        "title": "Você controla seus dados locais",
+        "paragraph": "Os dados financeiros inseridos no Danei são armazenados localmente no dispositivo do usuário. Os usuários podem excluir os dados locais do app limpando os dados do aplicativo nas configurações do dispositivo ou desinstalando o app."
+      },
+      {
+        "label": "Atualizações futuras",
+        "title": "Esta política pode mudar conforme o Danei evolui",
+        "paragraph": "Se versões futuras do Danei introduzirem contas, sincronização em nuvem, backups ou planos pagos, esta Política de Privacidade poderá ser atualizada para explicar como esses recursos lidam com dados. Quando houver mudanças, a versão atualizada será publicada nesta página com uma nova data de atualização."
+      },
+      {
+        "label": "Privacidade infantil",
+        "title": "O Danei não é direcionado a crianças",
+        "paragraph": "O Danei não foi criado nem destinado ao uso por crianças. Nós não solicitamos, coletamos, armazenamos ou processamos intencionalmente informações pessoais de crianças por meio do app."
+      },
+      {
+        "label": "Fale comigo",
+        "title": "Dúvidas, solicitações e suporte de privacidade",
+        "paragraph": "Se você tiver dúvidas, preocupações ou solicitações relacionadas a esta Política de Privacidade ou à forma como o Danei lida com informações, pode entrar em contato comigo pelo e-mail: ericemanuel@gmail.com"
+      }
+    ]
+  }
+}
+
+
+// ============================================================
+// File: src\main.js
+// ============================================================
+
+import { createApp } from 'vue';
+import App from './App.vue';
+import router from './router';
+import { createI18n } from 'vue-i18n';
+
+import pt from './locales/pt.json';
+import en from './locales/en.json';
+import es from './locales/es.json';
+
+const i18n = createI18n({
+  locale: 'en',
+  messages: {
+    pt,
+    en,
+    es,
+  },
+});
+
+const app = createApp(App);
+app.use(router);
+app.use(i18n);
+app.mount('#app');
+
+
+
+// ============================================================
+// File: src\router\index.js
+// ============================================================
+
+import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
+import home from '../views/home.vue';
+
+const routes = [
+  {
+    path: '/',
+    name: 'home',
+    component: home,
+  },
+  {
+    path: '/one',
+    name: 'one',
+    component: () => import('../views/one.vue'),
+  },
+  {
+    path: '/soul',
+    name: 'soul',
+    component: () => import('../views/soul.vue'),
+  },
+  {
+    path: '/sesc',
+    name: 'sesc',
+    component: () => import('../views/sesc.vue'),
+  },
+  {
+    path: '/gamechanger',
+    name: 'gamechanger',
+    component: () => import('../views/gamechanger.vue'),
+  },
+  {
+    path: '/ericemanuel',
+    name: 'ericemanuel',
+    component: () => import('../views/ericemanuel.vue'),
+  },
+  {
+    path: '/sescgo',
+    name: 'sescgo',
+    component: () => import('../views/sescgo.vue'),
+  },
+  {
+    path: '/danei/privacy',
+    name: 'danei-privacy',
+    component: () => import('../views/danei/privacy.vue'),
+  },
+];
+
+const router = createRouter({
+  history: createWebHashHistory(),
+  routes,
+  scrollBehavior(to, from, savedPosition) {
+    return {
+      top: 0,
+      behavior: 'smooth',
+    };
+  },
+});
+
+export default router;
+
+
+
+// ============================================================
+// File: src\styles\resets.scss
+// ============================================================
+
+html,
+body,
+menu {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style-type: none;
+}
+
+button {
+  margin: 0;
+  padding: 0;
+  width: auto;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+dd,
+figure {
+  margin: 0;
+}
+
+a {
+  line-height: 0;
+  text-decoration: none;
+}
+
+span {
+  display: block;
+}
+
+hr {
+  border: none;
+  margin: 0;
+}
+
+
+
+// ============================================================
+// File: src\styles\swiper.scss
+// ============================================================
+
+.swiper-pagination {
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #fff;
+}
+.swiper-pagination-bullet:not(:last-child) {
+  margin-bottom: 4px;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #3298cb;
+}
+
+@media only screen and (min-width: 900px) {
+  .swiper-pagination-bullet {
+    width: 16px;
+    height: 16px;
+  }
+  .swiper-pagination-bullet:not(:last-child) {
+    margin-bottom: 8px;
+  }
+}
+
+
+
+// ============================================================
+// File: src\styles\system.scss
+// ============================================================
+
+/* weights
+--------------------------------------------- */
+$light: 300;
+$regular: 400;
+$semibold: 600;
+$bold: 700;
+
+/* font-faces
+--------------------------------------------- */
+@font-face {
+  font-family: 'eina';
+  font-style: normal;
+  font-weight: $light;
+  src: url('@/assets/fonts/eina-light.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'eina';
+  font-style: italic;
+  font-weight: $light;
+  src: url('@/assets/fonts/eina-lightitalic.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'eina';
+  font-style: normal;
+  font-weight: $regular;
+  src: url('@/assets/fonts/eina-regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'eina';
+  font-style: italic;
+  font-weight: $regular;
+  src: url('@/assets/fonts/eina-italic.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'eina';
+  font-style: normal;
+  font-weight: $semibold;
+  src: url('@/assets/fonts/eina-semibold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'eina';
+  font-style: italic;
+  font-weight: $semibold;
+  src: url('@/assets/fonts/eina-semibolditalic.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'eina';
+  font-style: normal;
+  font-weight: $bold;
+  src: url('@/assets/fonts/eina-bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'eina';
+  font-style: italic;
+  font-weight: $bold;
+  src: url('@/assets/fonts/eina-bolditalic.woff2') format('woff2');
+}
+
+/* colors
+--------------------------------------------- */
+$onyx: #181818;
+$navy: #142332;
+$slate: #283c50;
+$teal: #2b778e;
+$sky: #3298cb;
+$azure: #73afd7;
+$cyan: #38bfc3;
+$white: #fff;
+$flow: -webkit-linear-gradient(0deg, #3298cb, #38bfc3);
+
+/* assignments
+--------------------------------------------- */
+@mixin emphasis {
+  font-style: italic;
+  background: $flow;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@mixin peta {
+  font-family: 'eina';
+  font-weight: $semibold;
+  font-size: 64px;
+  line-height: 76px;
+  color: $white;
+
+  & em {
+    font-weight: $bold;
+    @include emphasis;
+  }
+}
+
+@mixin tera {
+  font-family: 'eina';
+  font-weight: $semibold;
+  font-size: 40px;
+  line-height: 48px;
+  color: $white;
+
+  & em {
+    font-weight: $bold;
+    @include emphasis;
+  }
+}
+
+@mixin giga {
+  font-family: 'eina';
+  font-weight: $regular;
+  font-size: 36px;
+  line-height: 44px;
+  color: $white;
+
+  & em {
+    font-weight: $semibold;
+    @include emphasis;
+  }
+}
+
+@mixin mega {
+  font-family: 'eina';
+  font-weight: $regular;
+  font-size: 28px;
+  line-height: 32px;
+  color: $white;
+
+  & em {
+    font-weight: $semibold;
+    @include emphasis;
+  }
+}
+
+@mixin kilo {
+  font-family: 'eina';
+  font-weight: $regular;
+  font-size: 24px;
+  line-height: 28px;
+  color: $white;
+
+  & em {
+    font-weight: $semibold;
+    @include emphasis;
+  }
+}
+
+@mixin base {
+  font-family: 'eina';
+  font-weight: $regular;
+  font-size: 20px;
+  line-height: 24px;
+  color: $white;
+
+  & em {
+    font-weight: $semibold;
+    @include emphasis;
+  }
+}
+
+@mixin mili {
+  font-family: 'eina';
+  font-weight: $regular;
+  font-size: 16px;
+  line-height: 20px;
+  color: $white;
+
+  & em {
+    font-weight: $semibold;
+    @include emphasis;
+  }
+}
+
+@mixin micro {
+  font-family: 'eina';
+  font-weight: $regular;
+  font-size: 14px;
+  line-height: 16px;
+  color: $white;
+
+  & em {
+    font-weight: $semibold;
+    @include emphasis;
+  }
+}
+
+@mixin nano {
+  font-family: 'eina';
+  font-weight: $light;
+  font-style: italic;
+  font-size: 10px;
+  line-height: 12px;
+  color: $white;
+
+  & em {
+    font-weight: $semibold;
+    @include emphasis;
+  }
+}
+
+
+
+// ============================================================
+// File: src\views\danei\privacy.vue
+// ============================================================
+
+<template>
+	<main>
+		<stage
+			v-for="item in policy.stages"
+			:label="item.label"
+			:title="item.title"
+			:paragraph="item.paragraph"
+		/>
+	</main>
+</template>
+
+<script>
+import stage from '@/components/stage.vue';
+
+export default {
+	name: 'privacy',
+
+	components: {
+		stage,
+	},
+
+	computed: {
+		locale() { return this.$i18n.messages[this.$i18n.locale]; },
+		policy() { return this.locale.privacy; },
+	},
+};
+</script>
+
+<style scoped>
+article {
+	margin-bottom: 40px;
+}
+</style>
+
+
+// ============================================================
+// File: src\views\ericemanuel.vue
+// ============================================================
+
+<template>
+  <hero
+    :illustration="hero.illustration"
+    :alt="hero.alt"
+    :title="hero.title"
+    :description="hero.description"
+  />
+
+  <info :labels="labels" :items="items" />
+
+  <figma
+    :link="'https://embed.figma.com/design/1R5sD07qmGLGCgBvtDQY79/Portfolio?node-id=1088-1571&embed-host=share'"
+  />
+
+  <stage
+    :label="labels[4]"
+    :title="stages[0].title"
+    :paragraph="stages[0].paragraph"
+  />
+
+  <gallery :project="'ericemanuel'" :indexes="[1]" />
+
+  <stage
+    :label="labels[5]"
+    :title="stages[1].title"
+    :paragraph="stages[1].paragraph"
+  />
+
+  <gallery :project="'ericemanuel'" :indexes="[2]" />
+
+  <highlight :highlight="highlight" />
+
+  <gallery :project="'ericemanuel'" :indexes="[3, 4, 5]" />
+
+  <stage
+    :label="labels[6]"
+    :title="stages[2].title"
+    :paragraph="stages[2].paragraph"
+  />
+
+  <gallery :project="'ericemanuel'" :indexes="[6]" :animation="true" />
+
+  <others :projects="['Game Changer', 'Sesc Go']" :labels="labels" />
+</template>
+
+<script>
+import animation from '@/components/animation.vue';
+import hero from '@/components/hero.vue';
+import info from '@/components/info.vue';
+import figma from '../components/figma.vue';
+import player from '../components/player.vue';
+import stage from '@/components/stage.vue';
+import gallery from '@/components/gallery.vue';
+import highlight from '@/components/highlight.vue';
+import others from '@/components/others.vue';
+
+export default {
+  name: 'ericemanuel',
+  components: {
+    animation,
+    hero,
+    info,
+    figma,
+    player,
+    stage,
+    gallery,
+    highlight,
+    others,
+  },
+
+  // prettier-ignore
+  computed: {
+    locale()   { return this.$i18n.messages[this.$i18n.locale]; },
+    
+    hero()      { return this.locale.ericemanuel.hero; },
+    labels()    { return this.locale.labels; },
+    items()     { return this.locale.ericemanuel.items; },
+    stages()    { return this.locale.ericemanuel.stages; },
+    highlight() { return this.locale.ericemanuel.highlight; },
+    links()     { return this.locale.ericemanuel.links; },
+    titles()    { return this.locale.ericemanuel.titles; }
+  },
+};
+</script>
+
+
+
+// ============================================================
+// File: src\views\gamechanger.vue
+// ============================================================
+
+<template>
+  <hero
+    :illustration="hero.illustration"
+    :alt="hero.alt"
+    :title="hero.title"
+    :description="hero.description"
+  />
+
+  <info :labels="labels" :items="items" />
+
+  <gallery :project="'gamechanger'" :indexes="[1]" />
+
+  <stage
+    :label="labels[4]"
+    :title="stages[0].title"
+    :paragraph="stages[0].paragraph"
+  />
+
+  <gallery :project="'gamechanger'" :indexes="[2, 3, 4]" />
+
+  <stage
+    :label="labels[5]"
+    :title="stages[1].title"
+    :paragraph="stages[1].paragraph"
+  />
+
+  <gallery :project="'gamechanger'" :indexes="[5]" />
+
+  <highlight :highlight="highlight" />
+
+  <gallery :project="'gamechanger'" :indexes="[6, 7, 8]" />
+
+  <stage
+    :label="labels[6]"
+    :title="stages[2].title"
+    :paragraph="stages[2].paragraph"
+  />
+
+  <gallery :project="'gamechanger'" :indexes="[9]" :animation="true" />
+
+  <others :projects="['Sesc', 'Eric Emanuel']" :labels="labels" />
+</template>
+
+<script>
+import animation from '@/components/animation.vue';
+import hero from '@/components/hero.vue';
+import info from '@/components/info.vue';
+import gallery from '@/components/gallery.vue';
+import stage from '@/components/stage.vue';
+import highlight from '@/components/highlight.vue';
+import others from '@/components/others.vue';
+
+export default {
+  name: 'gamechanger',
+  components: {
+    animation,
+    hero,
+    info,
+    gallery,
+    stage,
+    highlight,
+    others,
+  },
+
+  // prettier-ignore
+  computed: {
+    locale()   { return this.$i18n.messages[this.$i18n.locale]; },
+    
+    hero()      { return this.locale.gamechanger.hero; },
+    labels()    { return this.locale.labels; },
+    items()     { return this.locale.gamechanger.items; },
+    stages()    { return this.locale.gamechanger.stages; },
+    highlight() { return this.locale.gamechanger.highlight; },
+    links()     { return this.locale.gamechanger.links; },
+    titles()    { return this.locale.gamechanger.titles; }
+  },
+};
+</script>
+
+
+
+// ============================================================
+// File: src\views\home.vue
+// ============================================================
+
+<template>
+  <header id="hero">
+    <div class="container">
+      <animation></animation>
+    </div>
+
+    <swiper
+      :modules="modules"
+      :speed="1500"
+      :autoplay="{ delay: 7000, disableOnInteraction: false }"
+      :pagination="{ clickable: true }"
+      @swiper="onSwiper"
+    >
+      <swiper-slide v-for="slide in slides">
+        <slide
+          :illustration="slide.illustration"
+          :alt="slide.alt"
+          :title="slide.title"
+          :description="slide.description"
+        />
+      </swiper-slide>
+    </swiper>
+  </header>
+
+  <section id="about">
+    <div class="container">
+      <div class="picture">
+        <img src="@/assets/images/eric.png" alt="Eric Emanuel" />
+        <div class="outline"></div>
+      </div>
+      <div class="texts">
+        <h1 v-html="$t('about.title')"></h1>
+        <hr />
+        <p v-html="$t('about.description')"></p>
+        <!-- prettier-ignore -->
+        <div class="links">
+          <icon
+            link="https://linkedin.com/in/ericemanuel"
+            icon="linkedin" alt="LinkedIn"
+          />
+          <icon
+            link="https://figma.com/@ericemanuel"
+            icon="figma" alt="Figma"
+          />
+          <icon
+            link="https://instagram.com/eric.emanuel"
+            icon="instagram" alt="Instagram"
+          />
+          <icon link="https://github.com/ericemanuel"
+            icon="github" alt="Figma"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="container">
+      <animation></animation>
+      <card
+        v-for="project in projects"
+        :link="project.link"
+        :brand="project.brand"
+        :brand_alt="project.brand_alt"
+        :illustration="project.illustration"
+        :illustration_alt="project.illustration_alt"
+        :label="project.label"
+        :title="project.title"
+      />
+    </div>
+  </section>
+</template>
+
+<script>
+import animation from '@/components/animation.vue';
+import slide from '@/components/slide.vue';
+import icon from '@/components/icon.vue';
+import card from '@/components/card.vue';
+
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Autoplay, Pagination } from 'swiper';
+import 'swiper/css';
+
+export default {
+  name: 'home',
+  components: {
+    animation,
+    Swiper,
+    SwiperSlide,
+    slide,
+    icon,
+    card,
+  },
+
+  // prettier-ignore
+  computed: {
+    locale()   { return this.$i18n.messages[this.$i18n.locale]; },
+
+    slides()   { return this.locale.slides; },
+    projects() { return this.locale.projects; },
+  },
+
+  setup() {
+    const onSwiper = () => {
+      const pagination = document.querySelector('.swiper-pagination');
+
+      if (innerWidth < 1000) {
+        pagination.style.right = (innerWidth - 328) / 2 + 'px';
+      } else {
+        pagination.style.right = (innerWidth - 900) / 2 + 'px';
+      }
+    };
+
+    return {
+      onSwiper,
+      modules: [Autoplay, Pagination],
+    };
+  },
+};
+</script>
+
+<style scoped lang="scss">
+#hero {
+  .container {
+    position: relative;
+
+    :deep(.animation) {
+      top: -200px;
+      right: -200px;
+      left: auto;
+      width: 540px;
+      transform: none;
+    }
+  }
+}
+
+#about {
+  .container {
+    position: relative;
+
+    .picture {
+      position: absolute;
+      top: 12px;
+      left: 0;
+
+      img,
+      .outline {
+        width: 72px;
+        height: 96px;
+        border-radius: 4px;
+      }
+
+      .outline {
+        position: absolute;
+        z-index: -1;
+        top: -12px;
+        left: 12px;
+        box-sizing: border-box;
+        border: 2px solid $sky;
+      }
+    }
+
+    .texts {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 24px;
+      width: 100%;
+
+      h1 {
+        @include kilo;
+        max-width: 230px;
+        text-align: right;
+      }
+
+      p,
+      :deep(p) {
+        @include micro;
+        text-align: right;
+      }
+
+      .links {
+        display: flex;
+        gap: 12px;
+      }
+    }
+  }
+}
+
+#projects {
+  margin-bottom: -56px;
+
+  //prettier-ignore
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    position: relative;
+
+    :deep(.animation) {
+      width: 800px;
+    }
+    
+    :deep(a:nth-of-type(2n-1)) { transform: translateY(-24px); }
+    :deep(a:nth-of-type(2n))   { transform: translateY(24px); }
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  #hero {
+    .container {
+      :deep(.animation) {
+        top: -360px;
+        right: -280px;
+        width: 900px;
+      }
+    }
+  }
+
+  #about {
+    .container {
+      .picture {
+        position: static;
+
+        img,
+        .outline {
+          width: 240px;
+          height: 320px;
+          border-radius: 16px;
+        }
+
+        .outline {
+          top: -32px;
+          left: 32px;
+          border: 4px solid $sky;
+        }
+      }
+
+      .texts {
+        gap: 32px;
+
+        h1 {
+          @include tera;
+          max-width: 556px;
+        }
+
+        p,
+        :deep(p) {
+          @include base;
+          width: 512px;
+        }
+
+        .links {
+          gap: 16px;
+        }
+      }
+    }
+  }
+
+  #projects {
+    margin-bottom: -80px;
+
+    //prettier-ignore
+    .container {
+      :deep(.animation) {
+        width: 1200px;
+      }
+
+      :deep(a:nth-of-type(2n-1)),
+      :deep(a:nth-of-type(2n))   { transform: none; }
+
+      :deep(a:nth-of-type(3n))   { transform: translateY(-56px); }
+      :deep(a:nth-of-type(3n-1)) { transform: translateY(0px); }
+      :deep(a:nth-of-type(3n-2)) { transform: translateY(56px); }
+    }
+  }
+}
+</style>
+
+
+
+// ============================================================
+// File: src\views\one.vue
+// ============================================================
+
+<template>
+  <hero
+    :illustration="hero.illustration"
+    :alt="hero.alt"
+    :title="hero.title"
+    :description="hero.description"
+  />
+
+  <info :labels="labels" :items="items" />
+
+  <figma
+    :link="'https://embed.figma.com/design/BW56QcIaRNaVtIHHLr97Kz/One?node-id=5255-4529&embed-host=share&hide-ui=1'"
+  />
+
+  <stage
+    :label="labels[4]"
+    :title="stages[0].title"
+    :paragraph="stages[0].paragraph"
+  />
+
+  <gallery :project="'one'" :indexes="[1, 2, 3]" />
+
+  <stage
+    :label="labels[5]"
+    :title="stages[1].title"
+    :paragraph="stages[1].paragraph"
+  />
+
+  <gallery :project="'one'" :indexes="[4]" />
+
+  <highlight :highlight="highlight" />
+
+  <gallery :project="'one'" :indexes="[5, 6, 7]" />
+
+  <stage
+    :label="labels[6]"
+    :title="stages[2].title"
+    :paragraph="stages[2].paragraph"
+  />
+
+  <gallery :project="'one'" :indexes="[8]" :animation="true" />
+
+  <others :projects="['Sesc Go', 'Soul']" :labels="labels" />
+</template>
+
+<script>
+import animation from '@/components/animation.vue';
+import hero from '@/components/hero.vue';
+import info from '@/components/info.vue';
+import figma from '../components/figma.vue';
+import player from '../components/player.vue';
+import stage from '@/components/stage.vue';
+import gallery from '@/components/gallery.vue';
+import highlight from '@/components/highlight.vue';
+import others from '@/components/others.vue';
+
+export default {
+  name: 'one',
+  components: {
+    animation,
+    hero,
+    info,
+    figma,
+    player,
+    stage,
+    gallery,
+    highlight,
+    others,
+  },
+
+  // prettier-ignore
+  computed: {
+    locale()   { return this.$i18n.messages[this.$i18n.locale]; },
+    
+    hero()      { return this.locale.one.hero; },
+    labels()    { return this.locale.labels; },
+    items()     { return this.locale.one.items; },
+    stages()    { return this.locale.one.stages; },
+    highlight() { return this.locale.one.highlight; },
+    links()     { return this.locale.one.links; },
+    titles()    { return this.locale.one.titles; }
+  },
+};
+</script>
+
+
+
+// ============================================================
+// File: src\views\sesc.vue
+// ============================================================
+
+<template>
+  <hero
+    :illustration="hero.illustration"
+    :alt="hero.alt"
+    :title="hero.title"
+    :description="hero.description"
+  />
+
+  <info :labels="labels" :items="items" />
+
+  <figma
+    :link="'https://embed.figma.com/design/TKN0XRBowsI72L7mTimkf7/Site-do-Sesc?node-id=6-967&embed-host=share'"
+  />
+
+  <stage
+    :label="labels[4]"
+    :title="stages[0].title"
+    :paragraph="stages[0].paragraph"
+  />
+
+  <gallery :project="'sesc'" :indexes="[1, 2, 3]" />
+
+  <stage
+    :label="labels[5]"
+    :title="stages[1].title"
+    :paragraph="stages[1].paragraph"
+  />
+
+  <gallery :project="'sesc'" :indexes="[4]" />
+
+  <highlight :highlight="highlight" />
+
+  <gallery :project="'sesc'" :indexes="[5, 6, 7]" />
+
+  <stage
+    :label="labels[6]"
+    :title="stages[2].title"
+    :paragraph="stages[2].paragraph"
+  />
+
+  <gallery :project="'sesc'" :indexes="[8]" :animation="true" />
+
+  <others :projects="['Soul', 'Game Changer']" :labels="labels" />
+</template>
+
+<script>
+import animation from '@/components/animation.vue';
+import hero from '@/components/hero.vue';
+import info from '@/components/info.vue';
+import figma from '../components/figma.vue';
+import player from '../components/player.vue';
+import stage from '@/components/stage.vue';
+import gallery from '@/components/gallery.vue';
+import highlight from '@/components/highlight.vue';
+import others from '@/components/others.vue';
+
+export default {
+  name: 'sesc',
+  components: {
+    animation,
+    hero,
+    info,
+    figma,
+    player,
+    stage,
+    gallery,
+    highlight,
+    others,
+  },
+
+  // prettier-ignore
+  computed: {
+    locale()    { return this.$i18n.messages[this.$i18n.locale]; },
+    
+    hero()      { return this.locale.sesc.hero; },
+    labels()    { return this.locale.labels; },
+    items()     { return this.locale.sesc.items; },
+    stages()    { return this.locale.sesc.stages; },
+    highlight() { return this.locale.sesc.highlight; },
+    links()     { return this.locale.sesc.links; },
+    titles()    { return this.locale.sesc.titles; }
+  },
+};
+</script>
+
+
+
+// ============================================================
+// File: src\views\sescgo.vue
+// ============================================================
+
+<template>
+  <hero
+    :illustration="hero.illustration"
+    :alt="hero.alt"
+    :title="hero.title"
+    :description="hero.description"
+  />
+
+  <info :labels="labels" :items="items" />
+
+  <figma
+    :link="'https://embed.figma.com/design/1R5sD07qmGLGCgBvtDQY79/Portfolio?node-id=0-1&embed-host=share'"
+  />
+
+  <stage
+    :label="labels[4]"
+    :title="stages[0].title"
+    :paragraph="stages[0].paragraph"
+  />
+
+  <gallery :project="'sescgo'" :indexes="[1, 2, 3]" />
+
+  <stage
+    :label="labels[5]"
+    :title="stages[1].title"
+    :paragraph="stages[1].paragraph"
+  />
+
+  <gallery :project="'sescgo'" :indexes="[4, 5, 6]" />
+
+  <highlight :highlight="highlight" />
+
+  <gallery :project="'sescgo'" :indexes="[7, 8, 9]" />
+
+  <stage
+    :label="labels[6]"
+    :title="stages[2].title"
+    :paragraph="stages[2].paragraph"
+  />
+
+  <gallery :project="'sescgo'" :indexes="[10, 11, 12]" :animation="true" />
+
+  <others :projects="['Eric Emanuel', 'One']" :labels="labels" />
+</template>
+
+<script>
+import animation from '@/components/animation.vue';
+import hero from '@/components/hero.vue';
+import info from '@/components/info.vue';
+import figma from '../components/figma.vue';
+import stage from '@/components/stage.vue';
+import gallery from '@/components/gallery.vue';
+import highlight from '@/components/highlight.vue';
+import others from '@/components/others.vue';
+
+export default {
+  name: 'sescgo',
+  components: {
+    animation,
+    hero,
+    info,
+    figma,
+    stage,
+    gallery,
+    highlight,
+    highlight,
+    others,
+  },
+
+  // prettier-ignore
+  computed: {
+    locale()    { return this.$i18n.messages[this.$i18n.locale]; },
+    
+    hero()      { return this.locale.sescgo.hero; },
+    labels()    { return this.locale.labels; },
+    items()     { return this.locale.sescgo.items; },
+    stages()    { return this.locale.sescgo.stages; },
+    highlight() { return this.locale.sescgo.highlight; },
+    links()     { return this.locale.sescgo.links; },
+    titles()    { return this.locale.sescgo.titles; }
+  },
+};
+</script>
+
+
+
+// ============================================================
+// File: src\views\soul.vue
+// ============================================================
+
+<template>
+  <hero
+    :illustration="hero.illustration"
+    :alt="hero.alt"
+    :title="hero.title"
+    :description="hero.description"
+  />
+
+  <info :labels="labels" :items="items" />
+
+  <player :project="'soul'" />
+
+  <stage
+    :label="labels[4]"
+    :title="stages[0].title"
+    :paragraph="stages[0].paragraph"
+  />
+
+  <gallery :project="'soul'" :indexes="[1, 2, 3]" />
+
+  <stage
+    :label="labels[5]"
+    :title="stages[1].title"
+    :paragraph="stages[1].paragraph"
+  />
+
+  <gallery :project="'soul'" :indexes="[4]" />
+
+  <highlight :highlight="highlight" />
+
+  <gallery :project="'soul'" :indexes="[5, 6, 7]" />
+
+  <stage
+    :label="labels[6]"
+    :title="stages[2].title"
+    :paragraph="stages[2].paragraph"
+  />
+
+  <gallery :project="'soul'" :indexes="[8, 9, 10]" :animation="true" />
+
+  <others :projects="['One', 'Sesc']" :labels="labels" />
+</template>
+
+<script>
+import animation from '@/components/animation.vue';
+import hero from '@/components/hero.vue';
+import info from '@/components/info.vue';
+import player from '../components/player.vue';
+import stage from '@/components/stage.vue';
+import gallery from '@/components/gallery.vue';
+import highlight from '@/components/highlight.vue';
+import others from '@/components/others.vue';
+
+export default {
+  name: 'one',
+  components: {
+    animation,
+    hero,
+    info,
+    player,
+    stage,
+    gallery,
+    highlight,
+    others,
+  },
+
+  // prettier-ignore
+  computed: {
+    locale()   { return this.$i18n.messages[this.$i18n.locale]; },
+    
+    hero()      { return this.locale.soul.hero; },
+    labels()    { return this.locale.labels; },
+    items()     { return this.locale.soul.items; },
+    stages()    { return this.locale.soul.stages; },
+    highlight() { return this.locale.soul.highlight; },
+    links()     { return this.locale.soul.links; },
+    titles()    { return this.locale.soul.titles; }
+  },
+};
+</script>
+

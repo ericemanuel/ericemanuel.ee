@@ -33,6 +33,12 @@ export default {
   h2 { @include kilo; }
   span,
   p  { @include micro; }
+
+  :deep(a) {
+    color: inherit;
+    overflow-wrap: anywhere;
+    text-decoration: underline;
+  }
 }
 
 @media only screen and (min-width: 900px) {
@@ -42,13 +48,11 @@ export default {
     gap: 64px;
 
     p {
-      display: flex;
       flex-shrink: 0;
       padding-top: 32px;
       width: 512px;
-
     }
-    
+
     h2   { @include mega; }
     span,
     p    { @include base; }

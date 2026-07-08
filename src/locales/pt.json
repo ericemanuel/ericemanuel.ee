@@ -333,5 +333,29 @@
         "paragraph": "Se você tiver dúvidas, preocupações ou solicitações relacionadas a esta Política de Privacidade ou à forma como o Danei lida com informações, pode entrar em contato comigo pelo e-mail: ericemanuel@gmail.com"
       }
     ]
+  },
+  "support": {
+    "stages": [
+      {
+        "label": "Suporte do Danei",
+        "title": "Ajuda com o app Danei",
+        "paragraph": "Esta página é o canal oficial de suporte do Danei, um app de finanças pessoais criado para ajudar usuários a organizarem sua vida financeira de forma simples e visual. Se você precisar de ajuda para usar o app, entre em contato com Eric Emanuel pelo e-mail: <a href=\"mailto:hello@ericemanuel.ee\">hello@ericemanuel.ee</a>."
+      },
+      {
+        "label": "Dados do usuário",
+        "title": "Suas informações financeiras ficam no seu dispositivo",
+        "paragraph": "O Danei armazena localmente, no dispositivo do usuário, as informações financeiras inseridas no app. O app não exige conta e não envia títulos de transações, notas, valores, informações de salário, informações de dívidas ou registros financeiros pessoais para nossos servidores nesta versão."
+      },
+      {
+        "label": "Privacidade",
+        "title": "As informações de privacidade estão disponíveis online",
+        "paragraph": "Para saber mais sobre como o Danei lida com informações, leia a Política de Privacidade em <a href=\"#/danei/privacy\">ericemanuel.ee/#/danei/privacy</a>. O Danei não vende dados de usuários."
+      },
+      {
+        "label": "Remoção de dados",
+        "title": "Você controla seus dados locais",
+        "paragraph": "Os usuários podem remover os dados locais do Danei limpando os dados do aplicativo nas configurações do dispositivo ou desinstalando o app. Para solicitações de suporte relacionadas a dados, privacidade ou uso do app, entre em contato: <a href=\"mailto:hello@ericemanuel.ee\">hello@ericemanuel.ee</a>."
+      }
+    ]
   }
 }

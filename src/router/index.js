@@ -42,6 +42,11 @@ const routes = [
     name: 'danei-privacy',
     component: () => import('../views/danei/privacy.vue'),
   },
+  {
+    path: '/danei/support',
+    name: 'danei-support',
+    component: () => import('../views/danei/support.vue'),
+  },
 ];
 
 const router = createRouter({

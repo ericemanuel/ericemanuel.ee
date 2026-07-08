@@ -2,16 +2,20 @@
   "compilerOptions": {
     "target": "es6",
     "module": "esnext",
-    "moduleResolution": "node",
-    "baseUrl": ".",
+    "moduleResolution": "bundler",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": [
+        "./src/*"
+      ]
     },
     "jsx": "preserve",
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true
   },
-
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
