@@ -7,8 +7,8 @@
 
       <ul
         :class="{
-          pt: currentLanguage == 'pt',
           en: currentLanguage == 'en',
+          pt: currentLanguage == 'pt',
           es: currentLanguage == 'es',
         }"
       >
@@ -32,7 +32,7 @@ export default {
 
   data() {
     return {
-      languages: ['pt', 'en', 'es'],
+      languages: ['en', 'pt', 'es'],
       currentLanguage: this.$i18n.locale,
     };
   },
@@ -141,8 +141,8 @@ export default {
 
       // prettier-ignore
       & {
-        &.pt { .circle { left: -4px; }}
-        &.en { .circle { left: 26px; }}
+        &.en { .circle { left: -2px; }}
+        &.pt { .circle { left: 28px; }}
         &.es { .circle { left: 56px; }}
       }
     }
