@@ -88,6 +88,7 @@ export default {
 
       width: 20px;
       height: 20px;
+      padding: 0 0 5px 3px;
       border-radius: 50%;
       background-color: $white;
 
