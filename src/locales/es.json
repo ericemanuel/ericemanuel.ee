@@ -294,43 +294,63 @@
     "stages": [
       {
         "label": "Política de Privacidad",
-        "title": "Lo que necesitas saber sobre Danei",
-        "paragraph": "Esta Política de Privacidad explica cómo Danei maneja la información cuando usas la app. Danei es una app de finanzas personales creada para ayudar a los usuarios a organizar su vida financiera de forma simple y visual. Última actualización: mayo de 2026."
+        "title": "Tus datos en Danei",
+        "paragraph": "Danei es una aplicación de organización financiera personal desarrollada por Eric Emanuel. Esta política explica qué datos usamos, para qué y cómo podés gestionarlos. Contacto de privacidad: <a href=\"mailto:danei@ericemanuel.ee\">danei@ericemanuel.ee</a>."
+      },
+      {
+        "label": "Cuentas",
+        "title": "Iniciar sesión es opcional",
+        "paragraph": "Podés usar las funciones locales sin iniciar sesión. Si ingresás con Google o Apple, Firebase Authentication utiliza identificadores de acceso y puede recibir tu nombre, correo y foto de perfil. Estos datos sirven para identificar tu cuenta Danei y proteger el acceso. Eliminar tu cuenta Danei no elimina tu cuenta de Google o Apple."
       },
       {
         "label": "Datos financieros",
-        "title": "Tu información financiera permanece en tu dispositivo",
-        "paragraph": "La información financiera ingresada por el usuario se almacena localmente en el dispositivo del propio usuario. En esta versión de la app, Danei no envía títulos de transacciones, notas, montos, información de salario, información de deudas ni registros financieros personales a nuestros servidores."
+        "title": "Datos locales y sincronizados",
+        "paragraph": "Los ambientes, transacciones, importes, categorías, notas, metas y preferencias se guardan en tu dispositivo. Si activás la sincronización o usás un ambiente compartido, los datos relacionados también se guardan en Firebase para sincronizarlos y permitir el acceso de los integrantes autorizados."
       },
       {
-        "label": "Analytics",
-        "title": "Usamos analytics básico para mejorar la app",
-        "paragraph": "Danei puede recopilar datos básicos de analytics para entender cómo se usa la app y mejorar la experiencia. Esto puede incluir eventos como apertura de pantallas, creación, edición o eliminación de transacciones, uso de filtros, versión de la app, información del dispositivo y comportamiento general de uso."
+        "label": "Ambientes compartidos",
+        "title": "Qué pueden ver los demás",
+        "paragraph": "Los integrantes de un ambiente compartido pueden ver sus registros. Si dejás el ambiente o eliminás tu cuenta, esos registros seguirán disponibles para los demás integrantes autorizados."
       },
       {
-        "label": "Compartir datos",
-        "title": "No vendemos datos de usuarios",
-        "paragraph": "Danei no vende datos de usuarios. La app puede usar servicios de terceros, como proveedores de analytics, para procesar datos básicos de uso necesarios para entender el rendimiento de la app y mejorar el producto. Estos servicios procesan datos de acuerdo con sus propias prácticas de privacidad y seguridad."
+        "label": "Respaldos",
+        "title": "Copias en Google Drive y iCloud",
+        "paragraph": "Cuando está disponible, Danei puede guardar respaldos en Google Drive o iCloud. Al eliminar tu cuenta, Danei intenta borrar los respaldos administrados por la aplicación a los que tiene acceso. Es posible que tengas que borrar otras copias de tu nube, de tus dispositivos o de archivos exportados."
       },
       {
-        "label": "Almacenamiento y eliminación",
-        "title": "Tú controlas tus datos locales",
-        "paragraph": "Los datos financieros ingresados en Danei se almacenan localmente en el dispositivo del usuario. Los usuarios pueden eliminar los datos locales de la app borrando los datos de la aplicación en la configuración del dispositivo o desinstalando la app."
+        "label": "Danei Plus",
+        "title": "Cómo se verifican las suscripciones",
+        "paragraph": "Google Play y App Store administran las compras y los pagos. Danei utiliza Qonversion para verificar las suscripciones mediante datos técnicos de compra. Danei no procesa tus datos de pago."
       },
       {
-        "label": "Actualizaciones futuras",
-        "title": "Esta política puede cambiar a medida que Danei evolucione",
-        "paragraph": "Si futuras versiones de Danei incorporan cuentas, sincronización en la nube, copias de seguridad o planes pagos, esta Política de Privacidad podrá actualizarse para explicar cómo esas funciones manejan los datos. Cuando haya cambios, la versión actualizada será publicada en esta página con una nueva fecha de actualización."
+        "label": "Notificaciones",
+        "title": "Avisos opcionales",
+        "paragraph": "Si activás las notificaciones, Firebase Cloud Messaging puede procesar identificadores del dispositivo, preferencias y los datos necesarios para enviar avisos sobre ambientes compartidos."
       },
       {
-        "label": "Privacidad infantil",
-        "title": "Danei no está dirigida a niños",
-        "paragraph": "Danei no fue diseñada ni está destinada para ser usada por niños. No solicitamos, recopilamos, almacenamos ni procesamos intencionalmente información personal de niños a través de la app."
+        "label": "Proveedores y seguridad",
+        "title": "Quiénes ayudan a ofrecer Danei",
+        "paragraph": "Danei utiliza Google/Firebase para el acceso, la sincronización, el almacenamiento y las notificaciones; Google o Apple para iniciar sesión y hacer respaldos; y Qonversion para verificar suscripciones. Restringimos el acceso a los datos sincronizados, usamos conexiones cifradas y no vendemos datos personales ni financieros. Los proveedores pueden procesar datos fuera de tu país con las garantías aplicables."
       },
       {
-        "label": "Contáctame",
-        "title": "Dudas, solicitudes y soporte de privacidad",
-        "paragraph": "Si tienes dudas, preocupaciones o solicitudes relacionadas con esta Política de Privacidad o con la forma en que Danei maneja la información, puedes contactarme por correo electrónico: ericemanuel@gmail.com"
+        "label": "Conservación y eliminación",
+        "title": "Qué permanece al eliminar tu cuenta",
+        "paragraph": "Conservamos los datos de la cuenta mientras sean necesarios para ella y sus funciones activas. Al eliminarla, se borran los datos vinculados a tu cuenta de los servicios de Danei y se intenta eliminar los respaldos administrados por la aplicación que estén accesibles. Pueden permanecer los registros compartidos y las copias fuera de nuestro control. Algunos registros técnicos pueden conservarse por seguridad, obligaciones legales o para completar la eliminación, y se borran cuando dejan de ser necesarios. Eliminar la cuenta no cancela suscripciones."
+      },
+      {
+        "label": "Tus derechos",
+        "title": "Gestioná tu información",
+        "paragraph": "Podés actualizar tu perfil, administrar los permisos de notificaciones en el dispositivo y eliminar tu cuenta desde Danei. Según la ley aplicable, también podés solicitar acceso, rectificación, portabilidad o eliminación de datos, u oponerte a determinados usos. Escribí a <a href=\"mailto:danei@ericemanuel.ee\">danei@ericemanuel.ee</a>. Consultá los <a href=\"#/danei/terms\">Términos de Uso</a>. Si no podés acceder a la aplicación, <a href=\"#/danei/delete-account\">solicitá la eliminación desde la web</a>."
+      },
+      {
+        "label": "Niños",
+        "title": "No está dirigida a niños",
+        "paragraph": "Danei no está diseñada para niños. No solicitamos intencionalmente información personal de niños."
+      },
+      {
+        "label": "Cambios",
+        "title": "Actualizaciones de esta política",
+        "paragraph": "Podemos actualizar esta política cuando cambien Danei o los servicios que utiliza. La versión vigente estará disponible en esta página."
       }
     ]
   },
@@ -338,23 +358,106 @@
     "stages": [
       {
         "label": "Soporte de Danei",
-        "title": "Ayuda con la app Danei",
-        "paragraph": "Esta página es el canal oficial de soporte de Danei, una app de finanzas personales creada para ayudar a los usuarios a organizar su vida financiera de forma simple y visual. Si necesitás ayuda para usar la app, contactá a Eric Emanuel por correo electrónico: <a href=\"mailto:hello@ericemanuel.ee\">hello@ericemanuel.ee</a>."
+        "title": "Ayuda con la aplicación",
+        "paragraph": "Este es el canal oficial de soporte de Danei. Para consultas sobre funciones, inicio de sesión, respaldos y suscripciones, contactá a Eric Emanuel en <a href=\"mailto:danei@ericemanuel.ee\">danei@ericemanuel.ee</a>."
       },
       {
-        "label": "Datos del usuario",
-        "title": "Tu información financiera permanece en tu dispositivo",
-        "paragraph": "Danei almacena localmente, en el dispositivo del usuario, la información financiera ingresada en la app. La app no exige una cuenta y no envía títulos de transacciones, notas, montos, información de sueldo, información de deudas ni registros financieros personales a nuestros servidores en esta versión."
+        "label": "Datos y sincronización",
+        "title": "Tu información puede estar en el dispositivo y en la nube",
+        "paragraph": "Danei conserva los datos financieros localmente y, cuando la sincronización está activa, utiliza Firebase para permitir el acceso a ambientes compartidos. Los respaldos pueden almacenarse en Google Drive o iCloud."
       },
       {
-        "label": "Privacidad",
-        "title": "La información de privacidad está disponible online",
-        "paragraph": "Para saber más sobre cómo Danei maneja la información, leé la Política de Privacidad en <a href=\"#/danei/privacy\">ericemanuel.ee/#/danei/privacy</a>. Danei no vende datos de usuarios."
+        "label": "Políticas",
+        "title": "Documentos disponibles en línea",
+        "paragraph": "Leé la <a href=\"#/danei/privacy\">Política de Privacidad</a> y los <a href=\"#/danei/terms\">Términos de Uso</a> para conocer el tratamiento de datos y las condiciones de Danei Plus."
       },
       {
-        "label": "Eliminación de datos",
-        "title": "Vos controlás tus datos locales",
-        "paragraph": "Los usuarios pueden eliminar los datos locales de Danei borrando los datos de la aplicación en la configuración del dispositivo o desinstalando la app. Para solicitudes de soporte relacionadas con datos, privacidad o uso de la app, contactá: <a href=\"mailto:hello@ericemanuel.ee\">hello@ericemanuel.ee</a>."
+        "label": "Eliminación de cuenta",
+        "title": "Tenés control sobre tu cuenta Danei",
+        "paragraph": "Abrí el perfil de Danei y elegí «Eliminar mi cuenta» para borrar tu perfil, tus datos personales vinculados y los respaldos administrados por la aplicación. Los ambientes compartidos permanecen disponibles para los demás miembros. Si necesitás ayuda, escribí a <a href=\"mailto:danei@ericemanuel.ee\">danei@ericemanuel.ee</a>. La eliminación no cancela las suscripciones activas. Si no podés acceder a la aplicación, <a href=\"#/danei/delete-account\">solicitá la eliminación desde la web</a>."
+      }
+    ]
+  },
+  "terms": {
+    "stages": [
+      {
+        "label": "Términos de Uso",
+        "title": "Cómo usar Danei",
+        "paragraph": "Danei es una aplicación de organización financiera personal. Al usarla, aceptás estos términos. Leé la <a href=\"#/danei/privacy\">Política de Privacidad</a> para saber cómo tratamos tus datos."
+      },
+      {
+        "label": "El servicio",
+        "title": "Organizá tus finanzas",
+        "paragraph": "Danei te ayuda a registrar transacciones, categorías, metas e informes. No es un banco, servicio de pagos, asesor financiero ni servicio de inversión. Danei no mueve dinero por vos."
+      },
+      {
+        "label": "Cuentas",
+        "title": "Protegé tu acceso",
+        "paragraph": "Podés usar las funciones locales sin iniciar sesión. El acceso con Google o Apple permite usar funciones vinculadas a la cuenta, como compartir y sincronizar. Protegé tu dispositivo y tus credenciales de acceso."
+      },
+      {
+        "label": "Ambientes compartidos",
+        "title": "Compartí con responsabilidad",
+        "paragraph": "Compartí registros solo con personas autorizadas a verlos. Si dejás un ambiente compartido o eliminás tu cuenta, sus registros seguirán disponibles para los demás integrantes autorizados."
+      },
+      {
+        "label": "Respaldos",
+        "title": "Cuidá tus copias",
+        "paragraph": "Danei ofrece respaldos locales o en la nube cuando están disponibles. Guardá los archivos exportados de forma segura y revisá tus respaldos antes de cambiar o restaurar dispositivos."
+      },
+      {
+        "label": "Danei Plus",
+        "title": "Gestioná los pagos en la tienda",
+        "paragraph": "Las funciones pagas requieren una suscripción activa. Google Play o App Store muestra el precio, período de cobro, renovación y ofertas antes de comprar. Las suscripciones pueden renovarse automáticamente. Administralas o cancelalas en la tienda donde las contrataste. Eliminar tu cuenta Danei no detiene los cobros."
+      },
+      {
+        "label": "Uso responsable",
+        "title": "Respetá el acceso y la seguridad",
+        "paragraph": "No accedas a ambientes ajenos sin permiso, uses indebidamente información compartida, interfieras con Danei ni eludas sus medidas de seguridad."
+      },
+      {
+        "label": "Disponibilidad",
+        "title": "Las funciones pueden cambiar",
+        "paragraph": "Algunas funciones dependen de tu dispositivo, la conexión a internet o servicios externos. Podemos actualizar Danei por seguridad, correcciones o compatibilidad. No podemos garantizar acceso ininterrumpido."
+      },
+      {
+        "label": "Eliminación de cuenta",
+        "title": "Podés eliminar tu cuenta",
+        "paragraph": "Usá “Eliminar mi cuenta” en tu perfil de Danei. Se eliminan tu cuenta y los datos personales vinculados, pero los registros compartidos siguen disponibles para los demás integrantes. Si no podés acceder a la aplicación, <a href=\"#/danei/delete-account\">solicitá la eliminación desde la web</a>. Consultá la <a href=\"#/danei/privacy\">Política de Privacidad</a> para más detalles."
+      },
+      {
+        "label": "Contacto y cambios",
+        "title": "Consultas sobre estos términos",
+        "paragraph": "Para consultas, escribí a <a href=\"mailto:danei@ericemanuel.ee\">danei@ericemanuel.ee</a>. Podemos actualizar estos términos; la versión vigente estará disponible en esta página."
+      }
+    ]
+  },
+  "deleteAccount": {
+    "stages": [
+      {
+        "label": "Eliminación de cuenta",
+        "title": "Eliminá tu cuenta Danei",
+        "paragraph": "Podés eliminar tu cuenta desde el perfil de Danei con “Eliminar mi cuenta”. Si no podés acceder a la aplicación, <a href=\"mailto:danei@ericemanuel.ee?subject=Solicitud%20de%20eliminaci%C3%B3n%20de%20cuenta%20Danei\">enviá una solicitud por correo</a>. No hace falta reinstalar la aplicación."
+      },
+      {
+        "label": "Verificación",
+        "title": "Confirmá que la cuenta es tuya",
+        "paragraph": "Indicá qué cuenta Danei querés eliminar, preferiblemente desde el correo asociado. Es posible que te pidamos verificar tu identidad. Nunca envíes contraseñas, códigos de acceso ni datos financieros."
+      },
+      {
+        "label": "Tus datos",
+        "title": "Qué se elimina",
+        "paragraph": "Después de verificar tu identidad, eliminamos tu cuenta Danei y los datos personales vinculados en nuestros servicios, e intentamos borrar los respaldos en la nube administrados por Danei a los que tengamos acceso. Es posible que tengas que borrar datos de tu dispositivo o copias de tu cuenta de Google Drive o iCloud. Algunos registros técnicos pueden conservarse cuando sea necesario por seguridad o por obligaciones legales."
+      },
+      {
+        "label": "Ambientes compartidos",
+        "title": "Los registros compartidos permanecen",
+        "paragraph": "Se elimina tu participación en los ambientes compartidos, pero sus registros siguen disponibles para los demás integrantes autorizados. Danei no puede borrar copias exportadas o guardadas fuera de la aplicación."
+      },
+      {
+        "label": "Danei Plus",
+        "title": "Las suscripciones son independientes",
+        "paragraph": "Eliminar tu cuenta no cancela Danei Plus. Para detener cobros futuros, cancelá la suscripción en Google Play o App Store. Consultá la <a href=\"#/danei/privacy\">Política de Privacidad</a> para más información sobre la eliminación de datos."
       }
     ]
   }

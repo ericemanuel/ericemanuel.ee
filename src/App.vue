@@ -32,6 +32,11 @@ html {
   overflow: hidden;
 }
 
+/* Match the space above the footer used by the project navigation. */
+#app > main + footer {
+  margin-top: -96px;
+}
+
 .container {
   position: relative;
   display: flex;
@@ -73,6 +78,10 @@ video {
   #app {
     gap: 240px;
     padding: 24px 0;
+  }
+
+  #app > main + footer {
+    margin-top: -144px;
   }
 
   .container {

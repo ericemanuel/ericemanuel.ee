@@ -1,33 +1,12 @@
 <template>
-	<main>
-		<stage
-			v-for="item in policy.stages"
-			:label="item.label"
-			:title="item.title"
-			:paragraph="item.paragraph"
-		/>
-	</main>
+  <LegalDocument document-key="privacy" />
 </template>
 
 <script>
-import stage from '@/components/stage.vue';
+import LegalDocument from './legal_document.vue';
 
 export default {
-	name: 'privacy',
-
-	components: {
-		stage,
-	},
-
-	computed: {
-		locale() { return this.$i18n.messages[this.$i18n.locale]; },
-		policy() { return this.locale.privacy; },
-	},
+  name: 'DaneiPrivacy',
+  components: { LegalDocument },
 };
 </script>
-
-<style scoped>
-article {
-	margin-bottom: 40px;
-}
-</style>

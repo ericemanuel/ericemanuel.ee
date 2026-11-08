@@ -42,6 +42,16 @@ const routes = [
     component: () => import('../views/danei/privacy.vue'),
   },
   {
+    path: '/danei/terms',
+    name: 'danei-terms',
+    component: () => import('../views/danei/terms.vue'),
+  },
+  {
+    path: '/danei/delete-account',
+    name: 'danei-delete-account',
+    component: () => import('../views/danei/delete_account.vue'),
+  },
+  {
     path: '/danei/support',
     name: 'danei-support',
     component: () => import('../views/danei/support.vue'),

@@ -14,6 +14,7 @@
       >
         <li
           v-for="language in languages"
+          :key="language"
           :class="{ active: currentLanguage == language }"
           @click="analyze(language)"
         >
@@ -77,22 +78,28 @@ export default {
   }
 
   ul {
+    --language-size: 24px;
+    --language-gap: 4px;
+    --language-step: calc(var(--language-size) + var(--language-gap));
+
     position: relative;
+    isolation: isolate;
 
     li {
+      position: relative;
+      z-index: 1;
       display: flex;
       justify-content: center;
       align-items: center;
+      flex: 0 0 var(--language-size);
+      box-sizing: border-box;
+      width: var(--language-size);
+      height: var(--language-size);
+      padding: 0;
       font-style: italic;
-      transition: all 0.8s ease-in-out;
-
-      width: 20px;
-      height: 20px;
-      padding: 0 0 5px 3px;
-      border-radius: 50%;
-      background-color: $white;
-
+      text-align: center;
       cursor: pointer;
+      transition: color 0.6s ease-in-out;
       @include micro;
 
       &.active {
@@ -102,6 +109,21 @@ export default {
       &:not(.active) {
         display: none;
       }
+    }
+
+    .circle {
+      position: absolute;
+      z-index: 0;
+      /* Center the circle on the visible Eina italic glyphs, not the line box. */
+      top: calc(50% + 3px);
+      left: 0;
+      width: var(--language-size);
+      height: var(--language-size);
+      transform: translateY(-50%);
+      border-radius: 50%;
+      background-color: $white;
+      pointer-events: none;
+      transition: left 0.6s ease-in-out;
     }
   }
 }
@@ -114,38 +136,19 @@ export default {
 
     ul {
       display: flex;
-      gap: 12px;
+      gap: var(--language-gap);
 
       li {
-        width: unset;
-        height: unset;
-        background-color: unset;
-
         @include mili;
 
         &:not(.active) {
-          display: unset;
+          display: flex;
         }
       }
 
-      .circle {
-        position: absolute;
-        z-index: -1;
-        top: -2px;
-        left: -4px;
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        background-color: $white;
-        transition: all 0.6s ease-in-out;
-      }
-
-      // prettier-ignore
-      & {
-        &.en { .circle { left: -2px; }}
-        &.pt { .circle { left: 28px; }}
-        &.es { .circle { left: 56px; }}
-      }
+      &.en .circle { left: 0; }
+      &.pt .circle { left: var(--language-step); }
+      &.es .circle { left: calc(var(--language-step) * 2); }
     }
   }
 }
